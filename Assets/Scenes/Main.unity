@@ -420,7 +420,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
-  rb: {fileID: 0}
+  rb: {fileID: 163414724}
 --- !u!95 &163414721
 Animator:
   serializedVersion: 7
@@ -431,7 +431,7 @@ Animator:
   m_GameObject: {fileID: 163414719}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1359b7076eab38242852cff30c960641, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -588,7 +588,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: 7384290322352760091, guid: 880bd5b746926f644b459ecfdfcaa8f4, type: 3}
+  m_Sprite: {fileID: 7384290322352760091, guid: f182580fcffe95b408ffdd43ef5c83df, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
