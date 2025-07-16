@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -6,16 +7,20 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 movement;
     private Animator anim;
-    private bool LeftOrRight;
+
+    [NonSerialized] public bool LeftOrRight;
+    private PlayerAttack playerattack;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        playerattack = GetComponent<PlayerAttack>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (playerattack.Attacking) { return; }
         //these lines get the input from from the player
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
@@ -54,6 +59,7 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (playerattack.Attacking) { return; }
         //this moves the player across the map
         rb.MovePosition(rb.position + movement.normalized * speed * Time.deltaTime); //this code moves the player to the new vector 2 position.
     }

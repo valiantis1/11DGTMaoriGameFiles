@@ -190,7 +190,7 @@ GameObject:
   - component: {fileID: 56686888}
   - component: {fileID: 56686887}
   - component: {fileID: 56686886}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -400,7 +400,8 @@ GameObject:
   - component: {fileID: 163414722}
   - component: {fileID: 163414721}
   - component: {fileID: 163414720}
-  m_Layer: 0
+  - component: {fileID: 163414727}
+  m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -420,7 +421,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
-  rb: {fileID: 163414724}
 --- !u!95 &163414721
 Animator:
   serializedVersion: 7
@@ -615,6 +615,25 @@ Transform:
   - {fileID: 56686885}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &163414727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 163414719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87d44755c78d35f43a9f5137f131711d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  range: 1.01
+  colliderDistance: 0.55
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  Collider: {fileID: 163414723}
+  playermovement: {fileID: 163414720}
 --- !u!1 &189395360
 GameObject:
   m_ObjectHideFlags: 0
