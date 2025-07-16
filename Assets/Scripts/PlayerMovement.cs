@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float speed;
-    public Rigidbody2D rb;
+    [SerializeField] private float speed;
+    private Rigidbody2D rb;
     private Vector2 movement;
     private Animator anim;
     private bool LeftOrRight;
