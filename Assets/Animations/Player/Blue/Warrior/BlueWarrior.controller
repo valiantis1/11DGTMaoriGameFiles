@@ -219,19 +219,19 @@ AnimatorStateMachine:
     m_Position: {x: 320, y: 120, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -3585521455644518097}
-    m_Position: {x: 10, y: 570, z: 0}
+    m_Position: {x: 830, y: 370, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -118373623838897385}
-    m_Position: {x: 50, y: 630, z: 0}
+    m_Position: {x: 870, y: 430, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 7752596703462281375}
-    m_Position: {x: 80, y: 700, z: 0}
+    m_Position: {x: 900, y: 500, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 3672840206698799237}
-    m_Position: {x: 120, y: 760, z: 0}
+    m_Position: {x: 940, y: 560, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -5525936804485352265}
-    m_Position: {x: 150, y: 830, z: 0}
+    m_Position: {x: 970, y: 630, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -4469182595541724531}
     m_Position: {x: 290, y: 210, z: 0}
@@ -240,13 +240,16 @@ AnimatorStateMachine:
     m_Position: {x: 20, y: 200, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 5880420299410775373}
-    m_Position: {x: 260, y: 1020, z: 0}
+    m_Position: {x: 1080, y: 820, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 8741713395567373234}
-    m_Position: {x: 290, y: 1090, z: 0}
+    m_Position: {x: 1110, y: 890, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -3189871414085663371}
-    m_Position: {x: 330, y: 1150, z: 0}
+    m_Position: {x: 1150, y: 950, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: 6727827723436785418}
+    m_Position: {x: 810, y: 300, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -361,6 +364,32 @@ AnimatorState:
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
   m_Motion: {fileID: 7400000, guid: ab5551f92d3a1dd47a0ca075a3163c22, type: 2}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
+--- !u!1102 &6727827723436785418
+AnimatorState:
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Warrior_Attack1_0
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: 7400000, guid: c5ebf66c0f075f648bda5a6f24946530, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
