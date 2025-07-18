@@ -6,7 +6,7 @@ public class PlayerAttack : MonoBehaviour
 {
     [SerializeField] private float range;
     [SerializeField] private float colliderDistance;
-    [SerializeField] private LayerMask playerLayer;
+    [SerializeField] private LayerMask EnemyLayer;
     [SerializeField] private CapsuleCollider2D Collider;
     [SerializeField] private PlayerMovement playermovement;
     [NonSerialized] public bool Attacking;
@@ -37,11 +37,11 @@ public class PlayerAttack : MonoBehaviour
             RaycastHit2D hit =
               Physics2D.BoxCast(Collider.bounds.center + transform.right * range * transform.localScale.x * colliderDistance,
               new Vector3(Collider.bounds.size.x * range, Collider.bounds.size.y, Collider.bounds.size.z),
-              0, Vector2.left, 0, playerLayer);
+              0, Vector2.left, 0, EnemyLayer);
 
             if (hit.collider != null)
             {
-                hit.collider.enabled = false;
+                print("work");
             }
         }
         else
@@ -49,7 +49,7 @@ public class PlayerAttack : MonoBehaviour
             RaycastHit2D hit =
               Physics2D.BoxCast(Collider.bounds.center + -transform.right * range * transform.localScale.x * colliderDistance,
               new Vector3(Collider.bounds.size.x * range, Collider.bounds.size.y, Collider.bounds.size.z),
-              0, Vector2.left, 0, playerLayer);
+              0, Vector2.left, 0, EnemyLayer);
 
             if (hit.collider != null)
             {
@@ -76,11 +76,20 @@ public class PlayerAttack : MonoBehaviour
         }
 
         //plays the attack multiple times to match the animation time.
-        for (int i = 0; i < 24; i++)
+        for (int i = 0; i < 29; i++)
         {
-            Attack();
-            yield return new WaitForSeconds(0.01f);
-            //print("attack"+i);
+            //gets all the current animations and stores
+            AnimatorClipInfo[] clipInfo = anim.GetCurrentAnimatorClipInfo(0);
+
+            if (clipInfo[0].clip.name == "Warrior_Attack2_Left_0" 
+                || clipInfo[0].clip.name == "Warrior_Attack1_Left_0" 
+                || clipInfo[0].clip.name == "Warrior_Attack2_0" 
+                || clipInfo[0].clip.name == "Warrior_Attack1_0")
+            {
+                Attack();
+                yield return new WaitForSeconds(0.01f);
+                print("attack"+i);
+            }
         }
         Attacking = false;
         anim.Play("Movement_Blend_Tree");
