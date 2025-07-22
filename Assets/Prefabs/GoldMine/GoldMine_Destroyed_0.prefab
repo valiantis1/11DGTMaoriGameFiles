@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2631749201565290708}
   - component: {fileID: 4195851028591463794}
   - component: {fileID: 2587014295604854355}
+  - component: {fileID: 7869761135234211145}
   m_Layer: 0
   m_Name: GoldMine_Destroyed_0
   m_TagString: Untagged
@@ -134,3 +135,19 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.66, y: 0.97}
   m_EdgeRadius: 0
+--- !u!114 &7869761135234211145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1119011615470490911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff

@@ -26,13 +26,13 @@ public class PlayerAttack : MonoBehaviour
             //If not attacking makes the player not be able to attack when attacking
             if (!Attacking)
             {
-                StartCoroutine(StartAttacking());
+                StartAttacking();
                 Attacking = true;
             }
         }
     }
 
-    private IEnumerator StartAttacking()
+    private void StartAttacking()
     {
         //makes a smoother attack and not as repetitive
         if (playermovement.LeftOrRight)
@@ -49,24 +49,11 @@ public class PlayerAttack : MonoBehaviour
             else
                 anim.Play("Warrior_Attack2_Left_0");
         }
-
-        //plays the attack multiple times to match the animation time.
-        for (int i = 0; i < 34; i++)
-        {
-            Attack();
-            yield return new WaitForEndOfFrame();
-            //print("attack"+i);
-        }
-        //lets the player attack again
-        Attacking = false;
-        //sets the movement back to the blend tree. So back to the normal moving (idling and running)
-        anim.Play("Movement_Blend_Tree");
-
-        AttackUpOrDown = !AttackUpOrDown;
     }
 
-    private void Attack()
+    public void Attack()
     {
+        //plays thoughout the animation and it not being run by code btw
         if (playermovement.LeftOrRight)
         {
             //makes a Raycast hitbox to is see if there are anythings with the enemylayer
@@ -92,6 +79,18 @@ public class PlayerAttack : MonoBehaviour
                 HitEnemy(hit);
             }
         }
+    }
+
+    public void StopAttack()
+    {
+        //players when the animation is finished (this is linked to the animation and it not being run by code)
+
+        //lets the player attack again
+        Attacking = false;
+        //sets the movement back to the blend tree. So back to the normal moving (idling and running)
+        anim.Play("Movement_Blend_Tree");
+
+        AttackUpOrDown = !AttackUpOrDown;
     }
 
     private void HitEnemy(RaycastHit2D hit)
