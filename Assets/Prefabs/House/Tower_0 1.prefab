@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6750530574641348615}
   - component: {fileID: 4777183420011255348}
   - component: {fileID: 1415074301474694056}
-  - component: {fileID: -5549075861279695698}
+  - component: {fileID: -7041256177244118228}
   m_Layer: 0
   m_Name: Tower_0 1
   m_TagString: Untagged
@@ -135,7 +135,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 2.06, y: 2.1}
   m_EdgeRadius: 0
---- !u!114 &-5549075861279695698
+--- !u!114 &-7041256177244118228
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

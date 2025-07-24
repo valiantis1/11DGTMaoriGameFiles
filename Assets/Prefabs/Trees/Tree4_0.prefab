@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8256004267851430916}
   - component: {fileID: 2061194850556334693}
   - component: {fileID: 7065669088761978180}
-  - component: {fileID: -5840886484471325898}
+  - component: {fileID: 7190459545836162373}
   m_Layer: 0
   m_Name: Tree4_0
   m_TagString: Untagged
@@ -84,7 +84,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.82, y: 1.24}
+  m_Size: {x: 1.28125, y: 1.9375}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -100,7 +100,7 @@ Animator:
   m_GameObject: {fileID: 2572937260542916187}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: ef4228ed384ec774190892483c0766bf, type: 2}
+  m_Controller: {fileID: 9100000, guid: f397f2bcba44c974790350da506fcd32, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -149,7 +149,7 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0.23}
   m_Size: {x: 1.41, y: 0.27}
   m_Direction: 0
---- !u!114 &-5840886484471325898
+--- !u!114 &7190459545836162373
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

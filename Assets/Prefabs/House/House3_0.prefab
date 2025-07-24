@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4600120803511147592}
   - component: {fileID: 3406489533439379384}
   - component: {fileID: -7319547001333777661}
-  - component: {fileID: 7313634193910302652}
+  - component: {fileID: 5733044021235092979}
   m_Layer: 0
   m_Name: House3_0
   m_TagString: Untagged
@@ -135,7 +135,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 2.1, y: 1.47}
   m_EdgeRadius: 0
---- !u!114 &7313634193910302652
+--- !u!114 &5733044021235092979
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

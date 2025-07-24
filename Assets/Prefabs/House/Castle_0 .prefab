@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3605696378215204021}
   - component: {fileID: 2130723643907229659}
   - component: {fileID: -5533751746639053822}
-  - component: {fileID: -4477255535647131205}
+  - component: {fileID: -5712753102313388688}
   m_Layer: 0
   m_Name: 'Castle_0 '
   m_TagString: Untagged
@@ -135,7 +135,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 5.25, y: 2.61}
   m_EdgeRadius: 0
---- !u!114 &-4477255535647131205
+--- !u!114 &-5712753102313388688
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

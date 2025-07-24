@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3273011564039077013}
   - component: {fileID: 6628006275122926656}
   - component: {fileID: 6890132871536311708}
-  - component: {fileID: 3346091026763777612}
+  - component: {fileID: -4319727721986618167}
   m_Layer: 0
   m_Name: 13_0
   m_TagString: Untagged
@@ -83,7 +83,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.58, y: 0.47}
+  m_Size: {x: 0.90625, y: 0.734375}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -128,14 +128,14 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 0.90625, y: 0.734375}
-    newSize: {x: 0.58, y: 0.47}
+    newSize: {x: 0.90625, y: 0.734375}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   m_Size: {x: 0.58, y: 0.47}
   m_EdgeRadius: 0
---- !u!114 &3346091026763777612
+--- !u!114 &-4319727721986618167
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

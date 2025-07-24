@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4525776851177890463}
   - component: {fileID: 1833850620827648751}
   - component: {fileID: -5519173253507400527}
-  - component: {fileID: -830177499403780238}
+  - component: {fileID: -514662083904071547}
   m_Layer: 0
   m_Name: Tree2_0
   m_TagString: Untagged
@@ -100,7 +100,7 @@ Animator:
   m_GameObject: {fileID: 7687309019901106295}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 03505bd552d367e47a481f729035b80d, type: 2}
+  m_Controller: {fileID: 9100000, guid: c1fe70a1a3b1a2645a8928549ff42bd9, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -149,7 +149,7 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0.4}
   m_Size: {x: 1.78, y: 3.12}
   m_Direction: 0
---- !u!114 &-830177499403780238
+--- !u!114 &-514662083904071547
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

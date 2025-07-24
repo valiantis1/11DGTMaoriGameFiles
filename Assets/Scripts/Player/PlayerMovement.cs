@@ -43,15 +43,18 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            if (LeftOrRight == true)
+            if(clipInfo.Length != 0)
             {
-                if(clipInfo[0].clip.name != "Warrior_Idle_0")
-                    anim.Play("Warrior_Idle_0");
-            }
-            else
-            {
-                if (clipInfo[0].clip.name != "Warrior_Idle_Left_0")
-                    anim.Play("Warrior_Idle_Left_0");
+                if (LeftOrRight == true)
+                {
+                    if(clipInfo[0].clip.name != "Warrior_Idle_0")
+                        anim.Play("Warrior_Idle_0");
+                }
+                else
+                {
+                    if (clipInfo[0].clip.name != "Warrior_Idle_Left_0")
+                        anim.Play("Warrior_Idle_Left_0");
+                }
             }
         }
         

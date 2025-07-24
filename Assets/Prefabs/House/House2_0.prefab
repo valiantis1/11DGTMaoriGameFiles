@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4506043874231674870}
   - component: {fileID: 6731982413752713149}
   - component: {fileID: 6106093311863328111}
-  - component: {fileID: 2399230884236269563}
+  - component: {fileID: -8317159922314369216}
   m_Layer: 0
   m_Name: House2_0
   m_TagString: Untagged
@@ -136,7 +136,7 @@ EdgeCollider2D:
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
   m_UseAdjacentEndPoint: 0
---- !u!114 &2399230884236269563
+--- !u!114 &-8317159922314369216
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

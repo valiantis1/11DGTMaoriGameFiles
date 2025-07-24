@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3708503325433000427}
   - component: {fileID: 3635466955934710739}
   - component: {fileID: 6689964303591568334}
-  - component: {fileID: 1590110899130522401}
+  - component: {fileID: 63490077409751756}
   m_Layer: 0
   m_Name: GoldMine_Inactive_0
   m_TagString: Untagged
@@ -135,7 +135,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.71, y: 0.97}
   m_EdgeRadius: 0
---- !u!114 &1590110899130522401
+--- !u!114 &63490077409751756
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -147,7 +147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_OverrideArea: 1
-  m_Area: 1
+  m_OverrideArea: 0
+  m_Area: 0
   m_IgnoreFromBuild: 0
   m_AffectedAgents: ffffffff

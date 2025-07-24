@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8032278417365365716}
   - component: {fileID: 1011719966709569791}
   - component: {fileID: 3928431264050168900}
-  - component: {fileID: -584155410323599155}
+  - component: {fileID: 9044049732460782126}
   m_Layer: 0
   m_Name: Bushe4_0
   m_TagString: Untagged
@@ -100,7 +100,7 @@ Animator:
   m_GameObject: {fileID: 3528879683381861996}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: ebf034ee4a95ca949a92851b17984624, type: 2}
+  m_Controller: {fileID: 9100000, guid: 81d0551ff82e5044c9462223b396454d, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -146,7 +146,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.6}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -156,9 +156,9 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.75, y: 0.6875}
+  m_Size: {x: 0.75, y: 0.1}
   m_EdgeRadius: 0
---- !u!114 &-584155410323599155
+--- !u!114 &9044049732460782126
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

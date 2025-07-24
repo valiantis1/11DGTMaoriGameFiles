@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4830332854009828148}
   - component: {fileID: 2977134854766028192}
   - component: {fileID: 4763544185067492599}
-  - component: {fileID: -6994790207921183788}
+  - component: {fileID: -1590764233766344653}
   m_Layer: 0
   m_Name: Bushe2_0
   m_TagString: Untagged
@@ -84,7 +84,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.48, y: 0.36}
+  m_Size: {x: 0.75, y: 0.5625}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -100,7 +100,7 @@ Animator:
   m_GameObject: {fileID: 2387878171044721581}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 10a559c67f10d65459bf73e465492b7f, type: 2}
+  m_Controller: {fileID: 9100000, guid: 305f121e4a03a314dac4ea1394d9a207, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -146,19 +146,19 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.5}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 0.75, y: 0.5625}
-    newSize: {x: 0.48, y: 0.36}
+    newSize: {x: 0.75, y: 0.5625}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.75, y: 0.5625}
+  m_Size: {x: 0.75, y: 0.1}
   m_EdgeRadius: 0
---- !u!114 &-6994790207921183788
+--- !u!114 &-1590764233766344653
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
