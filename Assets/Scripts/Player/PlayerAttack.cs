@@ -21,6 +21,7 @@ public class PlayerAttack : MonoBehaviour
     }
     void Update()
     {
+        if (GetComponent<PlayerHealth>().IsDead) { return; }
         if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
         {
             //If not attacking makes the player not be able to attack when attacking

@@ -23,9 +23,12 @@ public class Enemy : MonoBehaviour
     [SerializeField] private LayerMask PlayerLayer;
     [SerializeField] private BoxCollider2D Collider;
 
+    [SerializeField] private GameObject Player;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
+        //Player = FindAnyObjectByType<PlayerMovement>().gameObject;
         anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
@@ -115,6 +118,7 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
+        if (Player.GetComponent<PlayerHealth>().IsDead) { return; }
         StartAttack();
     }
 
@@ -167,7 +171,9 @@ public class Enemy : MonoBehaviour
     }
     private void HitEnemy(RaycastHit2D hit)
     {
-        print("Enemy hit");
+        if(!Player.GetComponent<PlayerHealth>().CanTakeDamage) { return; }
+        print("Enemy hit player");
+        Player.GetComponent<PlayerHealth>().PlayerHit();
     }
 
     public void StopAttack()

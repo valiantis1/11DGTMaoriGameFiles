@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 4785336355305463608}
   - component: {fileID: 6945095374998981502}
   - component: {fileID: 7176566440812563763}
+  - component: {fileID: 8033565408307542298}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -249,3 +250,22 @@ MonoBehaviour:
     m_Bits: 128
   Collider: {fileID: 1458604270385189299}
   playermovement: {fileID: 6945095374998981502}
+--- !u!114 &8033565408307542298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5429661423210663432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25a5566468d49754f81e4165cece5a34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NumberHearts: 5
+  HeartsPrefab: {fileID: 3656668133452637871, guid: c60b35466a4c49c4bbb2d0170a133e85, type: 3}
+  HeartsLocation: {fileID: 0}
+  Hearts: []
+  CanTakeDamage: 1
+  WaitTime: 0.4
+  WaitLoops: 3
