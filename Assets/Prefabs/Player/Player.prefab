@@ -267,5 +267,6 @@ MonoBehaviour:
   HeartsLocation: {fileID: 0}
   Hearts: []
   CanTakeDamage: 1
+  IsDead: 0
   WaitTime: 0.4
   WaitLoops: 3

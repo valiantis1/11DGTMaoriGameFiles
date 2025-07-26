@@ -1,51 +1,61 @@
-using Unity.Burst.CompilerServices;
+using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
-    NavMeshAgent agent; //(this is the AI)
-    [SerializeField] private Transform PlayerTrans;
+    private NavMeshAgent agent; //(this is the AI)
+    private Transform PlayerTrans;
 
     private Vector3 direction;
     private bool LeftOrRight;
     private Animator anim;
     private bool Attacking;
 
-    [SerializeField] private float AttackRange;
-    [SerializeField] private float LeaveRange;
+    [SerializeField] private float AttackRange, LeaveRange;
+
     public float distance;
     public bool CanAttack;
 
-    [SerializeField] private float range;
-    [SerializeField] private float Hight;
-    [SerializeField] private float colliderDistance;
+    [SerializeField] private float range, Hight, colliderDistance;
     [SerializeField] private LayerMask PlayerLayer;
     [SerializeField] private BoxCollider2D Collider;
 
-    [SerializeField] private GameObject Player;
+    private GameObject Player;
+
+    [SerializeField] private float WaitTimeRange1, WaitTimeRange2;
+
+    [NonSerialized] public bool IsDead;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
-        //Player = FindAnyObjectByType<PlayerMovement>().gameObject;
+        Player = FindAnyObjectByType<PlayerMovement>().gameObject;
         anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;
+        agent.isStopped = true;
+        StartCoroutine(FixStartMovement());
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Attacking) { return; }
+        if (agent.isStopped || Attacking || IsDead) { return; }
+
+        if (Player != null) { PlayerTrans = Player.transform; }
 
         AnimatorClipInfo[] clipInfo = anim.GetCurrentAnimatorClipInfo(0);
 
-        if(CanGoToPlayer())
+        if (CanGoToPlayer())
             agent.SetDestination(new Vector3(PlayerTrans.position.x, PlayerTrans.position.y, transform.position.z));
+        else
+            Looking();
 
-        direction = PlayerTrans.position - transform.position;
+        if(PlayerTrans != null)
+            direction = PlayerTrans.position - transform.position;
 
         if (agent.velocity.x != 0 && agent.velocity.y != 0)
         {
@@ -73,24 +83,23 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    private IEnumerator FixStartMovement()
+    {
+        yield return new WaitForSeconds(1);
+        agent.isStopped = false;
+    }
+
+    private void Looking()
+    {
+
+    }
+
     private bool CanGoToPlayer()
     {
-        float NewDirectionX;
-        float NewDirectionY;
+        if(PlayerTrans == null) { return false; }
+        distance = Vector3.Distance(transform.position, PlayerTrans.position);
 
-        if (direction.x < 0)
-            NewDirectionX = direction.x * -1;
-        else
-            NewDirectionX = direction.x;
-
-        if (direction.y < 0)
-            NewDirectionY = direction.y * -1;
-        else
-            NewDirectionY = direction.y;
-
-        distance = NewDirectionX + NewDirectionY;
-
-        if(CanAttack)
+        if (CanAttack)
         {
             if(distance > LeaveRange)
             {
@@ -118,12 +127,13 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (Player.GetComponent<PlayerHealth>().IsDead) { return; }
+        if (Player.GetComponent<PlayerHealth>().IsDead || IsDead) { return; }
         StartAttack();
     }
 
     private void StartAttack()
     {
+        if (IsDead) { return; }
         AnimatorClipInfo[] clipInfo = anim.GetCurrentAnimatorClipInfo(0);
 
         if (clipInfo[0].clip.name != "Torch_Red_Attack" || clipInfo[0].clip.name != "Torch_Red_Attack_Left")
@@ -142,6 +152,7 @@ public class Enemy : MonoBehaviour
 
     public void Attack()
     {
+        if (IsDead) { return; }
         //plays thoughout the animation and it not being run by code btw
         if (LeftOrRight)
         {
@@ -171,13 +182,13 @@ public class Enemy : MonoBehaviour
     }
     private void HitEnemy(RaycastHit2D hit)
     {
-        if(!Player.GetComponent<PlayerHealth>().CanTakeDamage) { return; }
-        print("Enemy hit player");
+        if (!Player.GetComponent<PlayerHealth>().CanTakeDamage || IsDead) { return; }
         Player.GetComponent<PlayerHealth>().PlayerHit();
     }
 
     public void StopAttack()
     {
+        if (IsDead) { return; }
         //players when the animation is finished (this is linked to the animation and it not being run by code)
 
         //lets the player attack again
@@ -188,7 +199,7 @@ public class Enemy : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-
+        if (IsDead) { return; }
         Gizmos.color = Color.red;
 
         //draws a debug hitbox that can only been seen in the scene window

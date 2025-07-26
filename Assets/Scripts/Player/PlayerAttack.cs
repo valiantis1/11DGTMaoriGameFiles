@@ -17,14 +17,16 @@ public class PlayerAttack : MonoBehaviour
 
     void Start()
     {
+        //finds it in the scene
         anim = GetComponent<Animator>();
     }
     void Update()
     {
+        //checks if the player is dead.
         if (GetComponent<PlayerHealth>().IsDead) { return; }
         if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
         {
-            //If not attacking makes the player not be able to attack when attacking
+            //When attacking, makes the player not be able to attack
             if (!Attacking)
             {
                 StartAttacking();
@@ -35,7 +37,7 @@ public class PlayerAttack : MonoBehaviour
 
     private void StartAttacking()
     {
-        //makes a smoother attack and not as repetitive
+        //makes a smoother attack and not as repetitive (with different up and down animations.)
         if (playermovement.LeftOrRight)
         {
             if(AttackUpOrDown)
@@ -57,7 +59,7 @@ public class PlayerAttack : MonoBehaviour
         //plays thoughout the animation and it not being run by code btw
         if (playermovement.LeftOrRight)
         {
-            //makes a Raycast hitbox to is see if there are anythings with the enemylayer
+            //makes a Raycast hitbox to is see if there are anythings with the enemy layer
             RaycastHit2D hit =
               Physics2D.BoxCast(Collider.bounds.center + transform.right * range * transform.localScale.x * colliderDistance,
               new Vector3(Collider.bounds.size.x * range, Collider.bounds.size.y + Hight, Collider.bounds.size.z),
@@ -70,6 +72,7 @@ public class PlayerAttack : MonoBehaviour
         }
         else
         {
+            //Left side check
             RaycastHit2D hit =
               Physics2D.BoxCast(Collider.bounds.center + -transform.right * range * transform.localScale.x * colliderDistance,
               new Vector3(Collider.bounds.size.x * range, Collider.bounds.size.y + Hight, Collider.bounds.size.z),
@@ -84,7 +87,7 @@ public class PlayerAttack : MonoBehaviour
 
     public void StopAttack()
     {
-        //players when the animation is finished (this is linked to the animation and it not being run by code)
+        //plays when the animation is finished (this is linked to the animation and it not being run by code)
 
         //lets the player attack again
         Attacking = false;
@@ -96,7 +99,7 @@ public class PlayerAttack : MonoBehaviour
 
     private void HitEnemy(RaycastHit2D hit)
     {
-        print("hit");
+        hit.rigidbody.GetComponent<EnemyHealth>().Hit();
     }
 
     private void OnDrawGizmos()

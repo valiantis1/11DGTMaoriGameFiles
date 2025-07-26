@@ -20,13 +20,11 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (playerattack.Attacking) { return; }
-        if (!GetComponent<PlayerHealth>().IsDead)
-        {
-            //these lines get the input from from the player
-            movement.x = Input.GetAxisRaw("Horizontal");
-            movement.y = Input.GetAxisRaw("Vertical");
-        }
+        if (playerattack.Attacking || GetComponent<PlayerHealth>().IsDead) { return; }
+
+        //these lines get the input from from the player
+        movement.x = Input.GetAxisRaw("Horizontal");
+        movement.y = Input.GetAxisRaw("Vertical");
 
         //gets all the current animations and stores
         AnimatorClipInfo[] clipInfo = anim.GetCurrentAnimatorClipInfo(0);
@@ -65,8 +63,7 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (GetComponent<PlayerHealth>().IsDead) { return; }
-        if (playerattack.Attacking) { return; }
+        if (GetComponent<PlayerHealth>().IsDead || playerattack.Attacking) { return; }
         //this moves the player across the map
         rb.MovePosition(rb.position + movement.normalized * speed * Time.deltaTime); //this code moves the player to the new vector 2 position.
     }
