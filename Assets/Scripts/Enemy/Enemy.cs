@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -8,12 +9,11 @@ public class Enemy : MonoBehaviour
     private NavMeshAgent agent; //(this is the AI)
     private Transform PlayerTrans;
 
-    private Vector3 direction;
     private bool LeftOrRight;
     private Animator anim;
     private bool Attacking;
 
-    [SerializeField] private float AttackRange, LeaveRange;
+    [SerializeField] private float ChaseRange, LeaveRange;
 
     public float distance;
     public bool CanAttack;
@@ -24,18 +24,24 @@ public class Enemy : MonoBehaviour
 
     private GameObject Player;
 
-    [SerializeField] private float WaitTimeRange1, WaitTimeRange2;
-
     [NonSerialized] public bool IsDead;
+    private bool CanGoToNewSpot = true;
+    private bool WaitingToGo;
+    private Vector3 StartPos;
+    [SerializeField] private float RandomWalkRange;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
+        //records the players start Position
+        StartPos = transform.position;
+        //Finds stuff in the scene
         Player = FindAnyObjectByType<PlayerMovement>().gameObject;
         anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
+        //settings
         agent.updateRotation = false;
         agent.updateUpAxis = false;
+        //fixs error with enemy running to player at start
         agent.isStopped = true;
         StartCoroutine(FixStartMovement());
     }
@@ -43,10 +49,12 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //checks if the code should be run
         if (agent.isStopped || Attacking || IsDead) { return; }
 
         if (Player != null) { PlayerTrans = Player.transform; }
 
+        //gets the last animations played
         AnimatorClipInfo[] clipInfo = anim.GetCurrentAnimatorClipInfo(0);
 
         if (CanGoToPlayer())
@@ -54,16 +62,15 @@ public class Enemy : MonoBehaviour
         else
             Looking();
 
-        if(PlayerTrans != null)
-            direction = PlayerTrans.position - transform.position;
-
-        if (agent.velocity.x != 0 && agent.velocity.y != 0)
+        if (agent.velocity.x != 0 || agent.velocity.y != 0)
         {
+            //there is only left and right animations 
+            //this is here to basicly save what direction it moved last.
             if (agent.velocity.x != 0)
-                anim.SetFloat("direction", direction.normalized.x);
-            anim.Play("Movement_Blend_Tree");
+                anim.SetFloat("direction", agent.velocity.normalized.x);
+            anim.Play("Movement_Blend_Tree"); //moving animations on
 
-            if (anim.GetFloat("direction") > 0)
+            if (anim.GetFloat("direction") > 0) //left = false, right = true
                 LeftOrRight = true;
             else
                 LeftOrRight = false;
@@ -91,7 +98,27 @@ public class Enemy : MonoBehaviour
 
     private void Looking()
     {
+        if(agent.velocity.x == 0 && agent.velocity.y == 0)
+        {
+            //waits 5 to 13 secounds then moves to a different random spot.
+            if(!WaitingToGo)
+            {
+                StartCoroutine(NewSpotWait());
+                WaitingToGo = true;
+            }
+            if(CanGoToNewSpot)
+            {
+                agent.SetDestination(new Vector3(UnityEngine.Random.Range(StartPos.x - RandomWalkRange, StartPos.x + RandomWalkRange), UnityEngine.Random.Range(StartPos.y - RandomWalkRange, StartPos.y + RandomWalkRange), 0));
+                CanGoToNewSpot = false;
+                WaitingToGo = false;
+            }
+        }
+    }
 
+    private IEnumerator NewSpotWait()
+    {
+        yield return new WaitForSeconds(UnityEngine.Random.Range(5, 13));
+        CanGoToNewSpot = true;
     }
 
     private bool CanGoToPlayer()
@@ -99,6 +126,8 @@ public class Enemy : MonoBehaviour
         if(PlayerTrans == null) { return false; }
         distance = Vector3.Distance(transform.position, PlayerTrans.position);
 
+        //checks if the player is in chase range
+        //if the player is in the 'chase range' then the enemy is locked on to the player untill the player leaves the 'leave range'
         if (CanAttack)
         {
             if(distance > LeaveRange)
@@ -113,7 +142,7 @@ public class Enemy : MonoBehaviour
         }
         else
         {
-            if(distance > AttackRange)
+            if(distance > ChaseRange)
             {
                 return false;
             }
@@ -127,6 +156,7 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
+        //This code is on when the player has entered a hitbox (the attack range)
         if (Player.GetComponent<PlayerHealth>().IsDead || IsDead) { return; }
         StartAttack();
     }
@@ -134,16 +164,20 @@ public class Enemy : MonoBehaviour
     private void StartAttack()
     {
         if (IsDead) { return; }
+        //gets the last animations played
         AnimatorClipInfo[] clipInfo = anim.GetCurrentAnimatorClipInfo(0);
 
+        //checks if attacking
         if (clipInfo[0].clip.name != "Torch_Red_Attack" || clipInfo[0].clip.name != "Torch_Red_Attack_Left")
             Attacking = false;
-
+        
+        //makes sure it is only ran once
         if (Attacking) {return;}
 
         Attacking = true;
+        //stops movement
         agent.SetDestination(transform.position);
-
+        //attacks
         if (LeftOrRight)
             anim.Play("Torch_Red_Attack");
         else
@@ -156,7 +190,7 @@ public class Enemy : MonoBehaviour
         //plays thoughout the animation and it not being run by code btw
         if (LeftOrRight)
         {
-            //makes a Raycast hitbox to is see if there are anythings with the enemylayer
+            //makes a Raycast hitbox to is see if there are anythings with the enemy layer
             RaycastHit2D hit =
               Physics2D.BoxCast(Collider.bounds.center + transform.right * range * transform.localScale.x * colliderDistance,
               new Vector3(Collider.bounds.size.x * range, Collider.bounds.size.y + Hight, Collider.bounds.size.z),
@@ -169,6 +203,7 @@ public class Enemy : MonoBehaviour
         }
         else
         {
+            //left side
             RaycastHit2D hit =
               Physics2D.BoxCast(Collider.bounds.center + -transform.right * range * transform.localScale.x * colliderDistance,
               new Vector3(Collider.bounds.size.x * range, Collider.bounds.size.y + Hight, Collider.bounds.size.z),
@@ -203,6 +238,19 @@ public class Enemy : MonoBehaviour
         Gizmos.color = Color.red;
 
         //draws a debug hitbox that can only been seen in the scene window
+
+        //if the game is started or not
+        if(StartPos != Vector3.zero)
+            Gizmos.DrawWireSphere(StartPos, RandomWalkRange);
+        else
+            Gizmos.DrawWireSphere(transform.position, RandomWalkRange);
+
+
+        Gizmos.DrawWireSphere(transform.position, ChaseRange);
+
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, LeaveRange);
+        Gizmos.color = Color.red;
 
         if (LeftOrRight)
             Gizmos.DrawWireCube(Collider.bounds.center + transform.right * range * transform.localScale.x * colliderDistance, new Vector3(Collider.bounds.size.x * range, Collider.bounds.size.y + Hight, Collider.bounds.size.z));
