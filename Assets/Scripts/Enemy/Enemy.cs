@@ -117,7 +117,7 @@ public class Enemy : MonoBehaviour
 
     private IEnumerator NewSpotWait()
     {
-        yield return new WaitForSeconds(UnityEngine.Random.Range(5, 13));
+        yield return new WaitForSeconds(UnityEngine.Random.Range(7, 15));
         CanGoToNewSpot = true;
     }
 
