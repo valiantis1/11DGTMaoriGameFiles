@@ -3,38 +3,68 @@ guid: baf1cd011f1b7454293dc588127532bc
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7246851116124526587
-    second: separation-31-07-2025_0
+      213: 2587934355600530103
+    second: separation_0
   - first:
-      213: 7674708858515811413
-    second: separation-31-07-2025_1
+      213: 3720493757792641800
+    second: separation_1
   - first:
-      213: -7314929583040963411
-    second: separation-31-07-2025_2
+      213: 3774464989397501479
+    second: separation_2
   - first:
-      213: 753859168643075834
-    second: separation-31-07-2025_3
+      213: -8343825467244859789
+    second: separation_3
   - first:
-      213: 8405421513464173663
-    second: separation-31-07-2025_4
+      213: 9045635254710609179
+    second: separation_4
   - first:
-      213: 119988340241493089
-    second: separation-31-07-2025_5
+      213: -5089420716068668407
+    second: separation_5
   - first:
-      213: 6855250060705789448
-    second: separation-31-07-2025_6
+      213: 5870558437945079565
+    second: separation_6
   - first:
-      213: -1730480898783280788
-    second: separation-31-07-2025_7
+      213: -4678882848474504138
+    second: separation_7
   - first:
-      213: 5363228125124390517
-    second: separation-31-07-2025_8
+      213: 8061551384375543921
+    second: separation_8
   - first:
-      213: -4563138512066298444
-    second: separation-31-07-2025_9
+      213: 868858670038970810
+    second: separation_9
   - first:
-      213: -2044652774493721869
-    second: separation-31-07-2025_10
+      213: -1871502251570434572
+    second: separation_10
+  - first:
+      213: 2881724279083202120
+    second: separation_11
+  - first:
+      213: 3783642007058042200
+    second: separation_12
+  - first:
+      213: 4167375382804265120
+    second: separation_13
+  - first:
+      213: 2700626217978702312
+    second: separation_14
+  - first:
+      213: -2397352120989228877
+    second: separation_15
+  - first:
+      213: -8047712702022080345
+    second: separation_16
+  - first:
+      213: 4148021891354352444
+    second: separation_17
+  - first:
+      213: 5885969459234747424
+    second: separation_18
+  - first:
+      213: 5920035647873802229
+    second: separation_19
+  - first:
+      213: -5985775971625749018
+    second: separation_20
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -67,7 +97,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -105,7 +135,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 2
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -135,18 +165,18 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1024
-        height: 303
+        width: 4096
+        height: 1212
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: af25b1897e6f30f49acf9d83498e1571
-      internalID: -1398577012
+      spriteID: 7ba599fb5903ae320800000000000000
+      internalID: 2587934355600530103
       vertices: []
       indices: 
       edges: []
@@ -155,7 +185,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 4e02483be5ed8f84ca04789ae2810624
+    spriteID: 00f5f429e47b0a24ba1ce0ca6fb77bdc
     internalID: 0
     vertices: []
     indices: 
@@ -165,9 +195,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries:
       - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":1024.0,"y":303.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":4096.0,"y":1212.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      separation_0: -1398577012
+      separation_0: 2587934355600530103
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

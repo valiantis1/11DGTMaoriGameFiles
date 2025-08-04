@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,26 +8,39 @@ public class PlayerHealth : MonoBehaviour
 {
     [SerializeField] private int NumberHearts;
     [SerializeField] private GameObject HeartsPrefab;
-    [SerializeField] private Transform HeartsLocation;
+    private Transform HeartsLocation;
     [SerializeField] private List<GameObject> Hearts;
     private int CurrentHealth;
     private Animator anim;
 
     public bool CanTakeDamage = true;
     public bool IsDead;
+    private bool StartOfGame = true;
 
     [SerializeField] private float WaitTime;
     [SerializeField] private int WaitLoops;
 
+    private UIManager uiManager;
     void Awake()
     {
+        uiManager = FindAnyObjectByType<UIManager>();
+        HeartsLocation = FindAnyObjectByType<HorizontalLayoutGroup>().transform;
         anim = GetComponent<Animator>();
 
+        StartCoroutine(MakeHearts());
+    }
+
+    public IEnumerator MakeHearts()
+    {
+        if (StartOfGame)
+            yield return new WaitForSeconds(4);
+        StartOfGame = false;
         //spawns in the hearts
         for (int i = 0; i < NumberHearts; i++)
         {
             Hearts.Add(Instantiate(HeartsPrefab));
             Hearts[i].transform.SetParent(HeartsLocation);
+            yield return new WaitForSeconds(0.2f);
         }
         CurrentHealth = NumberHearts;
     }
@@ -75,7 +89,7 @@ public class PlayerHealth : MonoBehaviour
     {
         IsDead = true;
         anim.Play("Death");
-
+        GetComponentInParent<PlayerDeathManager>().death(); // tells the player death manager that the player is dead.
         //Makes the Death animation in the right spot
         transform.position = new Vector3(transform.position.x, transform.position.y - 0.6f, transform.position.z);
     }

@@ -12,18 +12,20 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private PlayerMovement playermovement;
     [NonSerialized] public bool Attacking;
     private Animator anim;
+    private UIManager uiManager;
 
     private bool AttackUpOrDown;
 
-    void Start()
+    void Awake()
     {
         //finds it in the scene
+        uiManager = FindAnyObjectByType<UIManager>();
         anim = GetComponent<Animator>();
     }
     void Update()
     {
         //checks if the player is dead.
-        if (GetComponent<PlayerHealth>().IsDead) { return; }
+        if (GetComponent<PlayerHealth>().IsDead || uiManager.Fading) { return; }
         if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
         {
             //When attacking, makes the player not be able to attack

@@ -10,8 +10,11 @@ public class PlayerMovement : MonoBehaviour
 
     [NonSerialized] public bool LeftOrRight;
     private PlayerAttack playerattack;
+    private UIManager uiManager;
+
     void Start()
     {
+        uiManager = FindAnyObjectByType<UIManager>();
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         playerattack = GetComponent<PlayerAttack>();
@@ -20,14 +23,17 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(uiManager.Fading)
+        {
+            Idle();
+            return;
+        }
+
         if (playerattack.Attacking || GetComponent<PlayerHealth>().IsDead) { return; }
 
         //these lines get the input from from the player
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
-
-        //gets all the current animations and stores
-        AnimatorClipInfo[] clipInfo = anim.GetCurrentAnimatorClipInfo(0);
 
         //this line uses the input from the player on a bend tree to know what way to go. (-1 = left, 1 = right)
         if (movement.x != 0 || movement.y != 0)
@@ -44,21 +50,29 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            if(clipInfo.Length != 0)
-            {
-                if (LeftOrRight == true)
-                {
-                    if(clipInfo[0].clip.name != "Warrior_Idle_0")
-                        anim.Play("Warrior_Idle_0");
-                }
-                else
-                {
-                    if (clipInfo[0].clip.name != "Warrior_Idle_Left_0")
-                        anim.Play("Warrior_Idle_Left_0");
-                }
-            }
+            Idle();
         }
         
+    }
+
+    void Idle()
+    {
+        //gets all the current animations and stores
+        AnimatorClipInfo[] clipInfo = anim.GetCurrentAnimatorClipInfo(0);
+
+        if (clipInfo.Length != 0)
+        {
+            if (LeftOrRight == true)
+            {
+                if (clipInfo[0].clip.name != "Warrior_Idle_0")
+                    anim.Play("Warrior_Idle_0");
+            }
+            else
+            {
+                if (clipInfo[0].clip.name != "Warrior_Idle_Left_0")
+                    anim.Play("Warrior_Idle_Left_0");
+            }
+        }
     }
 
     void FixedUpdate()
