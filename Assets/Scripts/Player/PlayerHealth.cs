@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,6 +21,8 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private float WaitTime;
     [SerializeField] private int WaitLoops;
 
+    [NonSerialized] public bool CanRespawn;
+
     private UIManager uiManager;
     void Awake()
     {
@@ -33,7 +36,7 @@ public class PlayerHealth : MonoBehaviour
     public IEnumerator MakeHearts()
     {
         if (StartOfGame)
-            yield return new WaitForSeconds(4);
+            yield return new WaitForSeconds(3);
         StartOfGame = false;
         //spawns in the hearts
         for (int i = 0; i < NumberHearts; i++)
@@ -43,6 +46,7 @@ public class PlayerHealth : MonoBehaviour
             yield return new WaitForSeconds(0.2f);
         }
         CurrentHealth = NumberHearts;
+        CanRespawn = true;
     }
 
     public void PlayerHit()
@@ -85,12 +89,21 @@ public class PlayerHealth : MonoBehaviour
         CurrentHealth++;
     }
 
-    private void Death()
+    public void Death()
     {
+        if(IsDead) { return; }
         IsDead = true;
+        List<CapsuleCollider2D> capsuleCollider2D = GetComponents<CapsuleCollider2D>().ToList();
+        for (int i = 0; i < capsuleCollider2D.Count; i++)
+        {
+            capsuleCollider2D[i].enabled = false;
+        }
+        GetComponent<SpriteRenderer>().sortingOrder = 8;
         anim.Play("Death");
-        GetComponentInParent<PlayerDeathManager>().death(); // tells the player death manager that the player is dead.
         //Makes the Death animation in the right spot
+
+
+
         transform.position = new Vector3(transform.position.x, transform.position.y - 0.6f, transform.position.z);
     }
 
@@ -103,5 +116,6 @@ public class PlayerHealth : MonoBehaviour
         }
 
         Destroy(gameObject);
+        FindAnyObjectByType<PlayerDeathManager>().death(); // tells the player death manager that the player is dead.
     }
 }

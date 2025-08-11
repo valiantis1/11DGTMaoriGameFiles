@@ -43,6 +43,7 @@ public class EnemyHealth : MonoBehaviour
             //The enemy has 2 box Colliders
             GetComponent<BoxCollider2D>().enabled = false;
             GetComponent<BoxCollider2D>().enabled = false;
+            gameObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y - 0.6f, gameObject.transform.position.z);
         }
         else
         {

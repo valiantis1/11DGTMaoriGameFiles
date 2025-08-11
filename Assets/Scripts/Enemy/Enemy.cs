@@ -35,7 +35,6 @@ public class Enemy : MonoBehaviour
         //records the players start Position
         StartPos = transform.position;
         //Finds stuff in the scene
-        Player = FindAnyObjectByType<PlayerMovement>().gameObject;
         anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         //settings
@@ -49,6 +48,15 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        try
+        {
+            if(Player == null)
+                Player = FindAnyObjectByType<PlayerMovement>().gameObject;
+        }
+        catch { }
+
+
+        
         //checks if the code should be run
         if (agent.isStopped || Attacking || IsDead) { return; }
 

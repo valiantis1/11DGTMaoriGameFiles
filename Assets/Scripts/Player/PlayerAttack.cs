@@ -25,7 +25,7 @@ public class PlayerAttack : MonoBehaviour
     void Update()
     {
         //checks if the player is dead.
-        if (GetComponent<PlayerHealth>().IsDead || uiManager.Fading) { return; }
+        if (GetComponent<PlayerHealth>().IsDead || uiManager.Fading || GetComponent<PlayerMovement>().pauseGO.GetComponent<Pause>().Paused) { return; }
         if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
         {
             //When attacking, makes the player not be able to attack

@@ -11,9 +11,11 @@ public class PlayerMovement : MonoBehaviour
     [NonSerialized] public bool LeftOrRight;
     private PlayerAttack playerattack;
     private UIManager uiManager;
+    [NonSerialized] public GameObject pauseGO;
 
-    void Start()
+    void Awake()
     {
+        pauseGO = FindAnyObjectByType<Pause>().gameObject;
         uiManager = FindAnyObjectByType<UIManager>();
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
@@ -26,10 +28,20 @@ public class PlayerMovement : MonoBehaviour
         if(uiManager.Fading)
         {
             Idle();
+            pauseGO.GetComponent<Pause>().enabled = false;
             return;
         }
+        else
+        {
+            pauseGO.GetComponent<Pause>().enabled = true;
+        }
+        if (playerattack.Attacking || GetComponent<PlayerHealth>().IsDead || pauseGO.GetComponent<Pause>().Paused) { return; }
 
-        if (playerattack.Attacking || GetComponent<PlayerHealth>().IsDead) { return; }
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            if(!GetComponent<PlayerHealth>().CanRespawn) { return; }
+            GetComponent<PlayerHealth>().Death();
+        }
 
         //these lines get the input from from the player
         movement.x = Input.GetAxisRaw("Horizontal");

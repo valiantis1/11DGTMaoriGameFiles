@@ -264,7 +264,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NumberHearts: 5
   HeartsPrefab: {fileID: 3656668133452637871, guid: c60b35466a4c49c4bbb2d0170a133e85, type: 3}
-  HeartsLocation: {fileID: 0}
   Hearts: []
   CanTakeDamage: 1
   IsDead: 0

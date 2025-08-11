@@ -5,11 +5,6 @@ public class CameraFollow : MonoBehaviour
     private GameObject Player;
     public float Smoothing;
 
-    private void Awake()
-    {
-        Player = FindAnyObjectByType<PlayerMovement>().gameObject;
-    }
-
     // Update is called once per frame
     void LateUpdate()
     {
@@ -22,6 +17,14 @@ public class CameraFollow : MonoBehaviour
             Vector3 PlayerTrans = new Vector3(Player.transform.position.x, Player.transform.position.y, transform.position.z);
             //smoothly moves the camera
             transform.position = Vector3.Lerp(transform.position, PlayerTrans, Smoothing * Time.deltaTime);
+        }
+        else
+        {
+            try
+            {
+                Player = FindAnyObjectByType<PlayerMovement>().gameObject;
+            }
+            catch { } //just stops errors
         }
     }
 }
