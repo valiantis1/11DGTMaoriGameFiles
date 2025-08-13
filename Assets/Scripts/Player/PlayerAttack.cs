@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
@@ -24,6 +25,14 @@ public class PlayerAttack : MonoBehaviour
     }
     void Update()
     {
+        List<NPC> npc = new List<NPC>(FindObjectsByType<NPC>(FindObjectsSortMode.None));
+        for (int i = 0; i < npc.Count; i++)
+        {
+            if (npc[i].talking)
+            {
+                return;
+            }
+        }
         //checks if the player is dead.
         if (GetComponent<PlayerHealth>().IsDead || uiManager.Fading || GetComponent<PlayerMovement>().pauseGO.GetComponent<Pause>().Paused) { return; }
         if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))

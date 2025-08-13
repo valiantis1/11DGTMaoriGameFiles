@@ -91,6 +91,7 @@ public class PlayerHealth : MonoBehaviour
 
     public void Death()
     {
+        FindAnyObjectByType<NPC>().StopTalk = true;
         if(IsDead) { return; }
         IsDead = true;
         List<CapsuleCollider2D> capsuleCollider2D = GetComponents<CapsuleCollider2D>().ToList();

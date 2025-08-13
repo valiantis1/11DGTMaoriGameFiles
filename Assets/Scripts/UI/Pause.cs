@@ -9,7 +9,7 @@ public class Pause : MonoBehaviour
     {
         if(FindAnyObjectByType<PlayerHealth>() == null) { return; }
 
-        if(Input.GetKeyDown(KeyCode.Escape) && !FindAnyObjectByType<PlayerHealth>().IsDead && FindAnyObjectByType<PlayerHealth>().CanRespawn && !FindAnyObjectByType<UIManager>().Fading)
+        if(Input.GetKeyDown(KeyCode.Escape) && !FindAnyObjectByType<PlayerHealth>().IsDead && FindAnyObjectByType<PlayerHealth>().CanRespawn && !FindAnyObjectByType<UIManager>().Fading && !FindAnyObjectByType<NPC>().talking)
         {
             if (Paused) 
             { 

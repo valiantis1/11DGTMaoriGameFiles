@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -35,9 +36,19 @@ public class PlayerMovement : MonoBehaviour
         {
             pauseGO.GetComponent<Pause>().enabled = true;
         }
+        List<NPC> npc = new List<NPC>(FindObjectsByType<NPC>(FindObjectsSortMode.None));
+        for (int i = 0; i < npc.Count; i++)
+        {
+            if (npc[i].talking)
+            {
+                Idle();
+                return;
+            }
+        }
+
         if (playerattack.Attacking || GetComponent<PlayerHealth>().IsDead || pauseGO.GetComponent<Pause>().Paused) { return; }
 
-        if(Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.R))
         {
             if(!GetComponent<PlayerHealth>().CanRespawn) { return; }
             GetComponent<PlayerHealth>().Death();
