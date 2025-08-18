@@ -3,28 +3,28 @@ using UnityEngine;
 
 public class ButtonManager : MonoBehaviour
 {
-    [SerializeField] private List<GameObject> Buttons = new List<GameObject>();
-    [SerializeField] private List<GameObject> Gates = new List<GameObject>();
+    [SerializeField] private List<GameObject> buttons = new List<GameObject>();
+    [SerializeField] private List<GameObject> gates = new List<GameObject>();
     private bool IsAButtonPressed;
     public void Pressed(GameObject ButtonPressed)
     {
         IsAButtonPressed = false;
-        for (int i = 0; i < Buttons.Count; i++)
+        for (int i = 0; i < buttons.Count; i++)
         {
-            if(ButtonPressed.name == Buttons[i].name)
+            if(ButtonPressed.name == buttons[i].name)
             {
-                Buttons[i].GetComponent<BoxCollider2D>().enabled = false;
+                buttons[i].GetComponent<BoxCollider2D>().enabled = false;
             }
-            if(Buttons[i].GetComponent<BoxCollider2D>().enabled == true)
+            if(buttons[i].GetComponent<BoxCollider2D>().enabled == true)
             {
                 IsAButtonPressed = true;
             }
         }
         if(!IsAButtonPressed)
         {
-            for (int i = 0; i < Gates.Count; i++)
+            for (int i = 0; i < gates.Count; i++)
             {
-                Gates[i].SetActive(false);
+                gates[i].SetActive(false);
             }
         }
     }

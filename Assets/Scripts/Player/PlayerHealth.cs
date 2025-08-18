@@ -7,19 +7,19 @@ using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
-    [SerializeField] private int NumberHearts;
-    [SerializeField] private GameObject HeartsPrefab;
-    private Transform HeartsLocation;
-    [SerializeField] private List<GameObject> Hearts;
-    private int CurrentHealth;
+    [SerializeField] private int numberHearts;
+    [SerializeField] private GameObject heartsPrefab;
+    private Transform _heartsLocation;
+    [SerializeField] private List<GameObject> hearts;
+    private int _currentHealth;
     private Animator anim;
 
     public bool CanTakeDamage = true;
     public bool IsDead;
-    private bool StartOfGame = true;
+    private bool _startOfGame = true;
 
-    [SerializeField] private float WaitTime;
-    [SerializeField] private int WaitLoops;
+    [SerializeField] private float waitTime;
+    [SerializeField] private int waitLoops;
 
     [NonSerialized] public bool CanRespawn;
 
@@ -27,7 +27,7 @@ public class PlayerHealth : MonoBehaviour
     void Awake()
     {
         uiManager = FindAnyObjectByType<UIManager>();
-        HeartsLocation = FindAnyObjectByType<HorizontalLayoutGroup>().transform;
+        _heartsLocation = FindAnyObjectByType<HorizontalLayoutGroup>().transform;
         anim = GetComponent<Animator>();
 
         StartCoroutine(MakeHearts());
@@ -35,22 +35,23 @@ public class PlayerHealth : MonoBehaviour
 
     public IEnumerator MakeHearts()
     {
-        if (StartOfGame)
+        if (_startOfGame)
             yield return new WaitForSeconds(3);
-        StartOfGame = false;
+        _startOfGame = false;
         //spawns in the hearts
-        for (int i = 0; i < NumberHearts; i++)
+        for (int i = 0; i < numberHearts; i++)
         {
-            Hearts.Add(Instantiate(HeartsPrefab));
-            Hearts[i].transform.SetParent(HeartsLocation);
+            hearts.Add(Instantiate(heartsPrefab));
+            hearts[i].transform.SetParent(_heartsLocation);
             yield return new WaitForSeconds(0.2f);
         }
-        CurrentHealth = NumberHearts;
+        _currentHealth = numberHearts;
         CanRespawn = true;
     }
 
     public void PlayerHit()
     {
+        if(!CanRespawn) { return; } // basically, spawn protection
         //this is here because i cant run the ienumerator from a different script
         StartCoroutine(TakeDamage());
     }
@@ -58,25 +59,25 @@ public class PlayerHealth : MonoBehaviour
     private IEnumerator TakeDamage()
     {
         if(IsDead) { yield break; }
-        CurrentHealth--;
+        _currentHealth--;
         CanTakeDamage = false;
 
         //makes a heart dark
-        Hearts[CurrentHealth].GetComponent<Image>().color = Color.gray1;
+        hearts[_currentHealth].GetComponent<Image>().color = Color.gray1;
 
-        if (CurrentHealth == 0)
+        if (_currentHealth == 0)
         {
             Death();
             yield break;
         }
 
         //This makes the player flash red when taken damage.
-        for (int i = 0; i < WaitLoops; i++)
+        for (int i = 0; i < waitLoops; i++)
         {
             GetComponent<SpriteRenderer>().color = Color.red;
-            yield return new WaitForSeconds(WaitTime / 2);
+            yield return new WaitForSeconds(waitTime / 2);
             GetComponent<SpriteRenderer>().color = Color.white;
-            yield return new WaitForSeconds(WaitTime / 2);
+            yield return new WaitForSeconds(waitTime / 2);
         }
 
         CanTakeDamage = true;
@@ -85,8 +86,8 @@ public class PlayerHealth : MonoBehaviour
     private void GainHealth()
     {
         //gives the player health and sets a heart back to normal
-        Hearts[CurrentHealth].GetComponent<Image>().color = Color.white;
-        CurrentHealth++;
+        hearts[_currentHealth].GetComponent<Image>().color = Color.white;
+        _currentHealth++;
     }
 
     public void Death()
@@ -110,9 +111,9 @@ public class PlayerHealth : MonoBehaviour
 
     public IEnumerator Delete()
     {
-        for (int i = 0; i < NumberHearts; i++)
+        for (int i = 0; i < numberHearts; i++)
         {
-            Destroy(Hearts[i]);
+            Destroy(hearts[i]);
             yield return new WaitForSeconds(0.2f);
         }
 

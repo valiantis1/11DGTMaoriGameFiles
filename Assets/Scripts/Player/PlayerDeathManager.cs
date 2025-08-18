@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerDeathManager : MonoBehaviour
 {
     public GameObject PlayerPrefab;
-    private GameObject Player;
+    private GameObject _player;
 
     private List<Vector2> RespawnLocations = new List<Vector2> 
     { new Vector2(-2.5f, 1), // start position
@@ -22,19 +22,19 @@ public class PlayerDeathManager : MonoBehaviour
 
     void Awake()
     {
-        Player = Instantiate(PlayerPrefab);
-        Player.transform.SetParent(gameObject.transform);
+        _player = Instantiate(PlayerPrefab);
+        _player.transform.SetParent(gameObject.transform);
     }
     public void death()
     {
-        //plays little before when player is deleted
+        //Fades the screen
         FindAnyObjectByType<UIManager>().PlayerDeath();
     }
     public void SpawnPlayer()
     {
-        Player = Instantiate(PlayerPrefab);
-        Player.transform.SetParent(gameObject.transform);
-        Player.transform.localPosition = RespawnPoint();
+        _player = Instantiate(PlayerPrefab);
+        _player.transform.SetParent(gameObject.transform);
+        _player.transform.localPosition = RespawnPoint();
     }
 
     private Vector3 RespawnPoint()

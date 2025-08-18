@@ -6,10 +6,10 @@ using UnityEngine;
 public class PlayerAttack : MonoBehaviour
 {
     [SerializeField] private float range;
-    [SerializeField] private float Hight;
+    [SerializeField] private float hight;
     [SerializeField] private float colliderDistance;
-    [SerializeField] private LayerMask EnemyLayer;
-    [SerializeField] private CapsuleCollider2D Collider;
+    [SerializeField] private LayerMask enemyLayer;
+    [SerializeField] private CapsuleCollider2D collider_;
     [SerializeField] private PlayerMovement playermovement;
     [NonSerialized] public bool Attacking;
     private Animator anim;
@@ -28,13 +28,13 @@ public class PlayerAttack : MonoBehaviour
         List<NPC> npc = new List<NPC>(FindObjectsByType<NPC>(FindObjectsSortMode.None));
         for (int i = 0; i < npc.Count; i++)
         {
-            if (npc[i].talking)
+            if (npc[i].Talking)
             {
                 return;
             }
         }
         //checks if the player is dead.
-        if (GetComponent<PlayerHealth>().IsDead || uiManager.Fading || GetComponent<PlayerMovement>().pauseGO.GetComponent<Pause>().Paused) { return; }
+        if (GetComponent<PlayerHealth>().IsDead || uiManager.Fading || GetComponent<PlayerMovement>().PauseGO.GetComponent<Pause>().Paused) { return; }
         if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
         {
             //When attacking, makes the player not be able to attack
@@ -72,9 +72,9 @@ public class PlayerAttack : MonoBehaviour
         {
             //makes a Raycast hitbox to is see if there are anythings with the enemy layer
             RaycastHit2D hit =
-              Physics2D.BoxCast(Collider.bounds.center + transform.right * range * transform.localScale.x * colliderDistance,
-              new Vector3(Collider.bounds.size.x * range, Collider.bounds.size.y + Hight, Collider.bounds.size.z),
-              0, Vector2.left, 0, EnemyLayer);
+              Physics2D.BoxCast(collider_.bounds.center + transform.right * range * transform.localScale.x * colliderDistance,
+              new Vector3(collider_.bounds.size.x * range, collider_.bounds.size.y + hight, collider_.bounds.size.z),
+              0, Vector2.left, 0, enemyLayer);
 
             if (hit.collider != null)
             {
@@ -85,9 +85,9 @@ public class PlayerAttack : MonoBehaviour
         {
             //Left side check
             RaycastHit2D hit =
-              Physics2D.BoxCast(Collider.bounds.center + -transform.right * range * transform.localScale.x * colliderDistance,
-              new Vector3(Collider.bounds.size.x * range, Collider.bounds.size.y + Hight, Collider.bounds.size.z),
-              0, Vector2.left, 0, EnemyLayer);
+              Physics2D.BoxCast(collider_.bounds.center + -transform.right * range * transform.localScale.x * colliderDistance,
+              new Vector3(collider_.bounds.size.x * range, collider_.bounds.size.y + hight, collider_.bounds.size.z),
+              0, Vector2.left, 0, enemyLayer);
 
             if (hit.collider != null)
             {
@@ -121,8 +121,8 @@ public class PlayerAttack : MonoBehaviour
         //draws a debug hitbox that can only been seen in the scene window
 
         if (playermovement.LeftOrRight)
-            Gizmos.DrawWireCube(Collider.bounds.center + transform.right * range * transform.localScale.x * colliderDistance,new Vector3(Collider.bounds.size.x * range, Collider.bounds.size.y + Hight, Collider.bounds.size.z));
+            Gizmos.DrawWireCube(collider_.bounds.center + transform.right * range * transform.localScale.x * colliderDistance,new Vector3(collider_.bounds.size.x * range, collider_.bounds.size.y + hight, collider_.bounds.size.z));
         else
-            Gizmos.DrawWireCube(Collider.bounds.center + -transform.right * range * transform.localScale.x * colliderDistance, new Vector3(Collider.bounds.size.x * range, Collider.bounds.size.y + Hight, Collider.bounds.size.z));
+            Gizmos.DrawWireCube(collider_.bounds.center + -transform.right * range * transform.localScale.x * colliderDistance, new Vector3(collider_.bounds.size.x * range, collider_.bounds.size.y + hight, collider_.bounds.size.z));
     }
 }

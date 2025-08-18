@@ -5,37 +5,37 @@ using UnityEngine.AI;
 
 public class EnemyHealth : MonoBehaviour
 {
-    [SerializeField] private int StartHealth;
-    private int CurrentHealth;
+    [SerializeField] private int startHealth;
+    private int _currentHealth;
 
-    private SpriteRenderer Sprite;
-    private Animator anim;
+    private SpriteRenderer _sprite;
+    private Animator _anim;
 
-    private bool CanBeAttacked = true;
-    private float WaitingTime = 0.5f;
+    private bool _canBeAttacked = true;
+    private float _waitingTime = 0.5f;
 
     private void Start()
     {
         //finds everything in the scene
-        anim = GetComponent<Animator>();
-        Sprite = GetComponent<SpriteRenderer>();
+        _anim = GetComponent<Animator>();
+        _sprite = GetComponent<SpriteRenderer>();
         //makes sure the health isnt set to high
-        if (StartHealth > 3)
-            StartHealth = 3;
-        CurrentHealth = StartHealth;
+        if (startHealth > 3)
+            startHealth = 3;
+        _currentHealth = startHealth;
     }
 
     public void Hit()
     {
         //this gets call when the player is hit
-        if (!CanBeAttacked) { return; } //makes sure the player cant be hit or than once per swing
-        CurrentHealth--;
+        if (!_canBeAttacked) { return; } //makes sure the player cant be hit or than once per swing
+        _currentHealth--;
         if(Dead())
         {
             //sets colour back to normal, plays animation and tells the Enemy script to stop everything
-            Sprite.color = Color.white;
+            _sprite.color = Color.white;
             GetComponent<Enemy>().IsDead = true;
-            anim.Play("Death");
+            _anim.Play("Death");
 
             //stops the player from moving by turning off the sript
             GetComponent<Enemy>().enabled = false;
@@ -49,16 +49,16 @@ public class EnemyHealth : MonoBehaviour
         {
             //works out a nice colour to make the enemy go red.
             float DecreaseAmount;
-            DecreaseAmount = math.round(50 * CurrentHealth / StartHealth);
+            DecreaseAmount = math.round(50 * _currentHealth / startHealth);
             DecreaseAmount *= 0.01f;
-            Sprite.color = new Color(Sprite.color.r, Sprite.color.g - DecreaseAmount, Sprite.color.b - DecreaseAmount);
+            _sprite.color = new Color(_sprite.color.r, _sprite.color.g - DecreaseAmount, _sprite.color.b - DecreaseAmount);
         }
         StartCoroutine(CheckCanBeAttacked());
     }
 
     private bool Dead()
     {
-        if (CurrentHealth >= 1)
+        if (_currentHealth >= 1)
         {
             return false;
         }
@@ -67,9 +67,9 @@ public class EnemyHealth : MonoBehaviour
 
     private IEnumerator CheckCanBeAttacked()
     {
-        CanBeAttacked = false;
-        yield return new WaitForSeconds(WaitingTime);
-        CanBeAttacked = true;
+        _canBeAttacked = false;
+        yield return new WaitForSeconds(_waitingTime);
+        _canBeAttacked = true;
     }
 
     public void DeleteSelf()

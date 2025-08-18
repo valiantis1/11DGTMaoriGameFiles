@@ -242,13 +242,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87d44755c78d35f43a9f5137f131711d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: 1.8
-  Hight: 0.9
+  range: 0.9
+  hight: 0.3
   colliderDistance: 0.43
-  EnemyLayer:
+  enemyLayer:
     serializedVersion: 2
     m_Bits: 128
-  Collider: {fileID: 1458604270385189299}
+  collider_: {fileID: 5179822575004682970}
   playermovement: {fileID: 6945095374998981502}
 --- !u!114 &8033565408307542298
 MonoBehaviour:
@@ -262,10 +262,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25a5566468d49754f81e4165cece5a34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NumberHearts: 5
-  HeartsPrefab: {fileID: 3656668133452637871, guid: c60b35466a4c49c4bbb2d0170a133e85, type: 3}
-  Hearts: []
+  numberHearts: 5
+  heartsPrefab: {fileID: 3656668133452637871, guid: c60b35466a4c49c4bbb2d0170a133e85, type: 3}
+  hearts: []
   CanTakeDamage: 1
   IsDead: 0
-  WaitTime: 0.4
-  WaitLoops: 3
+  waitTime: 0.2
+  waitLoops: 2
