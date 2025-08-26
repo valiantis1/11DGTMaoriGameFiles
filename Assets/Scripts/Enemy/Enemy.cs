@@ -54,8 +54,6 @@ public class Enemy : MonoBehaviour
                 _player = FindAnyObjectByType<PlayerMovement>().gameObject;
         }
         catch { }
-
-
         
         //checks if the code should be run
         if (_agent.isStopped || _attacking || IsDead) { return; }

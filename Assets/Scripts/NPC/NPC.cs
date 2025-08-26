@@ -42,7 +42,7 @@ public class NPC : MonoBehaviour
             StartCoroutine(Talk());
         }
     }
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if(Talking) { return; }
         askTalkText.SetActive(true);
@@ -56,12 +56,12 @@ public class NPC : MonoBehaviour
     {
         for (int i = 0; i < talkingLines.Count; i++)
         {
-            print("pls fix1");
             text.maxVisibleCharacters = 0;
             text.text = talkingLines[i];
-            for (int j = 0; j < talkingLines[i].Length; j++)
+            print(talkingLines[i].Length);
+            for (int j = 0; j <= talkingLines[i].Length; j++)
             {
-                print("pls fix2");
+                print(j);
                 text.maxVisibleCharacters = j;
                 yield return new WaitForSeconds(waitTime);
             }
@@ -69,13 +69,12 @@ public class NPC : MonoBehaviour
         }
         Talking = false;
         textBox.SetActive(false);
-        print("pls fix3");
     }
 
     private IEnumerator ImageAndTalk()
     {
         bool ImageOn = false;
-        Image image = imageBox.GetComponent<Image>(); //makes the code look shorter, also might be an FPS boost.
+        Image image = imageBox.GetComponent<Image>(); //makes the code look shorter, also might be less on cpu.
 
         for (int i = 0; i < talkingLines.Count; i++) // runs the code for each line.
         {
@@ -131,7 +130,7 @@ public class NPC : MonoBehaviour
 
     private bool NextPage()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
+        if(Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.E) || Input.GetMouseButtonDown(0))
         {
             return true;
         }

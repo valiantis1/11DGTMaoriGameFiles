@@ -656,7 +656,7 @@ GameObject:
   - component: {fileID: 5730019237902890986}
   - component: {fileID: 6405955020332529196}
   - component: {fileID: 9016091316314770278}
-  - component: {fileID: 528723923728489675}
+  - component: {fileID: 6574366998166826693}
   - component: {fileID: 8913222992914752317}
   - component: {fileID: 5537731036108096605}
   m_Layer: 0
@@ -761,7 +761,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &528723923728489675
+--- !u!114 &6574366998166826693
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -773,7 +773,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5be3e062ae055c34f9946eb868987721, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  imageAndText: 0
+  imageAndText: 1
   text: {fileID: 0}
   textBox: {fileID: 0}
   imageBox: {fileID: 0}
@@ -781,9 +781,25 @@ MonoBehaviour:
   askTalkText: {fileID: 6096193315470192036}
   exclamationMark: {fileID: 7976225985725884262}
   Talking: 0
-  waitTime: 0.2
-  talkingLines: []
-  changeImage: []
+  waitTime: 0.02
+  talkingLines:
+  - 'Haere mai, warrior. You are at the takutai (beach). Listen. '
+  - 'Long ago the atua disagreed about how to use the new world. Their mana got stuck
+    on a moutere (island) and could not leave. '
+  - "The island held three atua (gods.) R\u0101kau (land), moana (sea), and hau (wind).
+    Because of this the balance was broken. "
+  - "The Gods names are: T\u0101ne (r\u0101kau/forest), Tangaroa (moana/sea), T\u0101whiri
+    (hau/storm). "
+  - "T\u0101ne, Tangaroa, T\u0101whiri \u2014 they stayed on this moutere (island).
+    They do not leave. Their mana is stuck."
+  - You will help whakaora (restore) the whenua (land).
+  changeImage:
+  - {fileID: 0}
+  - {fileID: -855298285791758126, guid: 83ac78f1669b532499216b717317f873, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 6937817954938267909, guid: 07760071ad0191746a73739b0bb50055, type: 3}
+  - {fileID: 0}
 --- !u!61 &8913222992914752317
 BoxCollider2D:
   m_ObjectHideFlags: 0

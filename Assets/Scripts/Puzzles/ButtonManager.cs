@@ -5,10 +5,10 @@ public class ButtonManager : MonoBehaviour
 {
     [SerializeField] private List<GameObject> buttons = new List<GameObject>();
     [SerializeField] private List<GameObject> gates = new List<GameObject>();
-    private bool IsAButtonPressed;
+    private bool _isAButtonPressed;
     public void Pressed(GameObject ButtonPressed)
     {
-        IsAButtonPressed = false;
+        _isAButtonPressed = false;
         for (int i = 0; i < buttons.Count; i++)
         {
             if(ButtonPressed.name == buttons[i].name)
@@ -17,10 +17,10 @@ public class ButtonManager : MonoBehaviour
             }
             if(buttons[i].GetComponent<BoxCollider2D>().enabled == true)
             {
-                IsAButtonPressed = true;
+                _isAButtonPressed = true;
             }
         }
-        if(!IsAButtonPressed)
+        if(!_isAButtonPressed)
         {
             for (int i = 0; i < gates.Count; i++)
             {

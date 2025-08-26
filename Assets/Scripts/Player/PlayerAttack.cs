@@ -12,16 +12,16 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private CapsuleCollider2D collider_;
     [SerializeField] private PlayerMovement playermovement;
     [NonSerialized] public bool Attacking;
-    private Animator anim;
-    private UIManager uiManager;
+    private Animator _anim;
+    private UIManager _uiManager;
 
-    private bool AttackUpOrDown;
+    private bool _attackUpOrDown;
 
     void Awake()
     {
         //finds it in the scene
-        uiManager = FindAnyObjectByType<UIManager>();
-        anim = GetComponent<Animator>();
+        _uiManager = FindAnyObjectByType<UIManager>();
+        _anim = GetComponent<Animator>();
     }
     void Update()
     {
@@ -34,7 +34,7 @@ public class PlayerAttack : MonoBehaviour
             }
         }
         //checks if the player is dead.
-        if (GetComponent<PlayerHealth>().IsDead || uiManager.Fading || GetComponent<PlayerMovement>().PauseGO.GetComponent<Pause>().Paused) { return; }
+        if (GetComponent<PlayerHealth>().IsDead || _uiManager.Fading || GetComponent<PlayerMovement>().PauseGO.GetComponent<Pause>().Paused) { return; }
         if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
         {
             //When attacking, makes the player not be able to attack
@@ -51,17 +51,17 @@ public class PlayerAttack : MonoBehaviour
         //makes a smoother attack and not as repetitive (with different up and down animations.)
         if (playermovement.LeftOrRight)
         {
-            if(AttackUpOrDown)
-                anim.Play("Warrior_Attack1_0");
+            if(_attackUpOrDown)
+                _anim.Play("Warrior_Attack1_0");
             else
-                anim.Play("Warrior_Attack2_0");
+                _anim.Play("Warrior_Attack2_0");
         }
         else
         {
-            if(AttackUpOrDown)
-                anim.Play("Warrior_Attack1_Left_0");
+            if(_attackUpOrDown)
+                _anim.Play("Warrior_Attack1_Left_0");
             else
-                anim.Play("Warrior_Attack2_Left_0");
+                _anim.Play("Warrior_Attack2_Left_0");
         }
     }
 
@@ -103,9 +103,9 @@ public class PlayerAttack : MonoBehaviour
         //lets the player attack again
         Attacking = false;
         //sets the movement back to the blend tree. So back to the normal moving (idling and running)
-        anim.Play("Movement_Blend_Tree");
+        _anim.Play("Movement_Blend_Tree");
 
-        AttackUpOrDown = !AttackUpOrDown;
+        _attackUpOrDown = !_attackUpOrDown;
     }
 
     private void HitEnemy(RaycastHit2D hit)

@@ -37,7 +37,7 @@ public class PlayerDeathManager : MonoBehaviour
         _player.transform.localPosition = RespawnPoint();
     }
 
-    private Vector3 RespawnPoint()
+    public Vector3 RespawnPoint()
     {
         GameObject ClosestSpawnPoint = null;
         int Point = 0;
