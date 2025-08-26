@@ -35,6 +35,8 @@ public class PlayerDeathManager : MonoBehaviour
         _player = Instantiate(PlayerPrefab);
         _player.transform.SetParent(gameObject.transform);
         _player.transform.localPosition = RespawnPoint();
+        _player.GetComponent<PlayerMovement>().enabled = true;
+        _player.GetComponent<PlayerAttack>().enabled = true;
     }
 
     public Vector3 RespawnPoint()

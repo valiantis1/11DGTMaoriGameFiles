@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +8,8 @@ public class FinalBoss : MonoBehaviour
     [SerializeField] private GameObject enemyPrefab1, enemyPrefab2, enemyPrefab3; // 1 will be the weakest with 3 being the strongest
     [SerializeField] private List<GameObject> spawnPoints = new List<GameObject>();
     [SerializeField] private GameObject gates;
+
+    [SerializeField] private List<GameObject> tāwhirimātea_NPCs;
 
     [SerializeField] private List<GameObject> enemys = new List<GameObject>();
     private bool _isFighting;
@@ -63,6 +65,8 @@ public class FinalBoss : MonoBehaviour
                 }
                 else if (!wave3)
                 {
+                    yield return new WaitForSeconds(0.1f);
+                    yield return new WaitUntil(DoneTalking);
                     SpawnEnemy(enemyPrefab2, 2);
                     wave3 = true;
                     //print("Wave3");
@@ -92,6 +96,16 @@ public class FinalBoss : MonoBehaviour
 
             yield return null;
         }
+    }
+
+    private bool DoneTalking()
+    {
+        for (int i = 0; tāwhirimātea_NPCs.Count < 5; i++)
+        {
+
+        }
+
+        return false;
     }
 
     private void SpawnEnemy(GameObject _enemy, int _amountOfEnemys) //spawns the enemy at a random spawnpoint

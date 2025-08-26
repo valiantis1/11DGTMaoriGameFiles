@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     private Image _panel;
-    public bool Fading; // 'Fading' is made for the other scripts (eg. so the player can move while the screen is fading colours.)
+    public bool Fading; // 'Fading' is made for the other scripts (eg. so the player cant move while the screen is fading)
     private bool _canTitleFade = true;
     private bool _death;
     [SerializeField] private float deathWait;
@@ -25,7 +25,7 @@ public class UIManager : MonoBehaviour
         StartCoroutine(FadeOutAll(_panel));
     }
 
-    private IEnumerator FadeOutAll(Image image)
+    private IEnumerator FadeOutAll(Image image) //fades out the screen, also stops player movement
     {
         Fading = true;
         while (image.color.a >= 0)
@@ -39,15 +39,16 @@ public class UIManager : MonoBehaviour
         if(_canTitleFade)
         {
             Fading = true;
-            yield return new WaitForSeconds(titleShowTime);
+            yield return new WaitForSeconds(titleShowTime); //lets the title screen show for longer
             StartCoroutine(FadeInAll(_panel));
         }
     }
 
-    private IEnumerator FadeInAll(Image image)
+    private IEnumerator FadeInAll(Image image) //fades in the screen, also stops player movement
     {
         if (_death)
-            yield return new WaitForSeconds(deathWait);
+            yield return new WaitForSeconds(deathWait); // this gives time for the hearts be deleted
+
         Fading = true;
         while (image.color.a <= 1)
         {
@@ -63,7 +64,7 @@ public class UIManager : MonoBehaviour
             StartCoroutine(FadeOutAll(_panel));
             _canTitleFade = false;
         }
-        if(_death)
+        if(_death) // if the player is dea this will play
         {
             yield return new WaitForSeconds(1);
             StartCoroutine(FadeOutAll(image));

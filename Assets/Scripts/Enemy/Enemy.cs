@@ -98,7 +98,7 @@ public class Enemy : MonoBehaviour
 
     private IEnumerator FixStartMovement()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.3f);
         _agent.isStopped = false;
     }
 

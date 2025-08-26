@@ -9,31 +9,41 @@ using UnityEngine.UI;
 
 public class NPC : MonoBehaviour
 {
-    [SerializeField] private bool imageAndText;
+    [SerializeField] private bool imageAndText; // when on will shows both images and text
+    [SerializeField] private bool invisTalking; // when on means that a god is talking
+
+    [SerializeField] private bool godTalking; // is godTalking and invisTalking is true then the god is talking. But if only the invisTalking is true then the narrator is talking
+
     [SerializeField] private TextMeshProUGUI text;
+    [SerializeField] private TextMeshProUGUI nameText;
     [SerializeField] private GameObject textBox;
     [SerializeField] private GameObject imageBox;
     [SerializeField] private GameObject imageBoxBackground;
     [SerializeField] private GameObject askTalkText;
     [SerializeField] private GameObject exclamationMark;
-    public bool Talking;
-    [SerializeField] private float waitTime;
+    public bool Talking; // when this is on other scripts can see it and stop moving, stop pausing, etc.
+    [SerializeField] private float waitTime; // time between letters show
 
+    [SerializeField] private string nameOfNpc;
     [SerializeField] List<String> talkingLines = new List<String>();
     [SerializeField] List<Sprite> changeImage = new List<Sprite>(); // this will have the same amount as the talkinglines. But if i want the image to change i will put an image where the line will be.
 
     [NonSerialized] public bool StopTalk;
+    private bool _talkedBefore; //this is used for the gods because i only want them to talk once
+    private bool _invisCanTalk;
+
 
     // Update is called once per frame
     void Update()
     {
-        if(askTalkText.activeSelf && !Talking && Input.GetKeyDown(KeyCode.E) && !FindAnyObjectByType<Pause>().Paused)
+        if(askTalkText.activeSelf && !Talking && Input.GetKeyDown(KeyCode.E) && !FindAnyObjectByType<Pause>().Paused && !invisTalking)
         {
             Talking = true;
             exclamationMark.SetActive(false);
             askTalkText.SetActive(false);
             textBox.SetActive(true);
-            if(imageAndText)
+            nameText.text = nameOfNpc + ":";
+            if (imageAndText)
             {
                 imageBox.SetActive(true);
                 StartCoroutine(ImageAndTalk());
@@ -41,10 +51,21 @@ public class NPC : MonoBehaviour
             }
             StartCoroutine(Talk());
         }
+        if(invisTalking && !Talking && !_talkedBefore && _invisCanTalk)
+        {
+            Talking = true;
+            _talkedBefore = true;
+            nameText.text = nameOfNpc + ":";
+            StartCoroutine(InvisTalk());
+        }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(Talking) { return; }
+        if(Talking || invisTalking) 
+        {
+            _invisCanTalk = true;
+            return; 
+        }
         askTalkText.SetActive(true);
     }
     private void OnTriggerExit2D(Collider2D collision)
@@ -58,10 +79,8 @@ public class NPC : MonoBehaviour
         {
             text.maxVisibleCharacters = 0;
             text.text = talkingLines[i];
-            print(talkingLines[i].Length);
             for (int j = 0; j <= talkingLines[i].Length; j++)
             {
-                print(j);
                 text.maxVisibleCharacters = j;
                 yield return new WaitForSeconds(waitTime);
             }
@@ -127,10 +146,55 @@ public class NPC : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         Talking = false;
     }
+    private IEnumerator InvisTalk()
+    {
+        Image image = null;
+        Color oldColor = Color.white;
+        if (godTalking)
+        {
+            oldColor = imageBoxBackground.GetComponent<Image>().color;
+            image = imageBoxBackground.GetComponent<Image>();
+            image.color = new Color(1, 1, 1, 0);
+            imageBoxBackground.SetActive(true);
+
+            while (image.color.a <= 1) //fades the image
+            {
+                image.color = new Color(image.color.r, image.color.g, image.color.b, (image.color.a + 0.03f));
+                yield return new WaitForSeconds(0.03f);
+            }
+        }
+
+        textBox.SetActive(true);
+
+        for (int i = 0; i < talkingLines.Count; i++)
+        {
+            text.maxVisibleCharacters = 0;
+            text.text = talkingLines[i];
+            for (int j = 0; j <= talkingLines[i].Length; j++)
+            {
+                text.maxVisibleCharacters = j;
+                yield return new WaitForSeconds(waitTime);
+            }
+            yield return new WaitUntil(NextPage);
+        }
+
+        textBox.SetActive(false);
+        Talking = false;
+
+        if (!godTalking) { yield break; }
+
+        while (image.color.a >= 0) // hides image
+        {
+            image.color = new Color(image.color.r, image.color.g, image.color.b, (image.color.a - 0.03f));
+            yield return new WaitForSeconds(0.03f);
+        }
+        imageBoxBackground.SetActive(false);
+        image.color = oldColor;
+    }
 
     private bool NextPage()
     {
-        if(Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.E) || Input.GetMouseButtonDown(0))
+        if(Input.anyKey || Input.GetMouseButtonDown(0))
         {
             return true;
         }

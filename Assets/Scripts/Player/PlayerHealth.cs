@@ -36,7 +36,7 @@ public class PlayerHealth : MonoBehaviour
     public IEnumerator MakeHearts()
     {
         if (_startOfGame)
-            yield return new WaitForSeconds(3);
+            yield return new WaitForSeconds(2.5f);
         _startOfGame = false;
         //spawns in the hearts
         for (int i = 0; i < numberHearts; i++)
@@ -46,6 +46,10 @@ public class PlayerHealth : MonoBehaviour
             yield return new WaitForSeconds(0.2f);
         }
         _currentHealth = numberHearts;
+
+        //turns on the movemnt for the first spawn in
+        GetComponent<PlayerMovement>().enabled = true;
+        GetComponent<PlayerAttack>().enabled = true;
         CanRespawn = true;
     }
 

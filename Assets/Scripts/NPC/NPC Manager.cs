@@ -8,13 +8,23 @@ public class NPCManager : MonoBehaviour //this script is made to fix a problem I
     [SerializeField] List<NPC> NPCs = new List<NPC>();
     private PlayerDeathManager _playerDeathManager;
     private Vector3 _playerPos;
+    private bool _isHeartMade; // it is called this because when the hearts are first made PlayerMovement gets turned on
 
     private void Awake()
     {
         _playerDeathManager = FindAnyObjectByType<PlayerDeathManager>();
-        StartCoroutine(Loop());
     }
-     
+
+    private void Update()
+    {
+        if (_isHeartMade) { return; }
+        if(FindAnyObjectByType<PlayerMovement>().enabled && !_isHeartMade)
+        {
+            _isHeartMade = true;
+            StartCoroutine(Loop());
+        }
+    }
+
     private IEnumerator Loop() // this code plays every 1 second to stop lag
     {
         // this code finds the closest NPC then only that NPC will be on and other NPC's will be off
