@@ -88,6 +88,7 @@ public class NPC : MonoBehaviour
         }
         Talking = false;
         textBox.SetActive(false);
+        TellQuest();
     }
 
     private IEnumerator ImageAndTalk()
@@ -145,6 +146,8 @@ public class NPC : MonoBehaviour
         }
         yield return new WaitForSeconds(0.5f);
         Talking = false;
+
+        TellQuest();
     }
     private IEnumerator InvisTalk()
     {
@@ -181,6 +184,8 @@ public class NPC : MonoBehaviour
         textBox.SetActive(false);
         Talking = false;
 
+        TellQuest();
+
         if (!godTalking) { yield break; }
 
         while (image.color.a >= 0) // hides image
@@ -191,7 +196,18 @@ public class NPC : MonoBehaviour
         imageBoxBackground.SetActive(false);
         image.color = oldColor;
     }
+    public void finalBossNpc() // this will be called from the finalboss script
+    {
+        Talking = true;
+        _talkedBefore = true;
+        nameText.text = nameOfNpc + ":";
+        StartCoroutine(InvisTalk());
+    }
 
+    private void TellQuest() // tells the quest script that the player has finshed to talking with this NPC
+    {
+        FindAnyObjectByType<Quests>().TalkedWithNpc(nameOfNpc);
+    }
     private bool NextPage()
     {
         if(Input.anyKey || Input.GetMouseButtonDown(0))

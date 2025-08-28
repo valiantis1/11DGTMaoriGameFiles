@@ -74,6 +74,7 @@ public class EnemyHealth : MonoBehaviour
 
     public void DeleteSelf()
     {
+        FindAnyObjectByType<Quests>().EnemysDefeated();
         Destroy(gameObject);
     }
 }

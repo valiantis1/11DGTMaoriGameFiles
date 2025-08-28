@@ -14,7 +14,7 @@ public class FinalBossFightSpawnCheck : MonoBehaviour
         }
     }
 
-    private IEnumerator Wait()
+    private IEnumerator Wait() // can spawn again after 1 to 5 seconds
     {
         yield return new WaitForSeconds(UnityEngine.Random.Range(1, 5));
         CanSpawn = true;

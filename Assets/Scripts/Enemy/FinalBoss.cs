@@ -5,11 +5,13 @@ using UnityEngine;
 
 public class FinalBoss : MonoBehaviour
 {
-    [SerializeField] private GameObject enemyPrefab1, enemyPrefab2, enemyPrefab3; // 1 will be the weakest with 3 being the strongest
+    [SerializeField] private GameObject enemyPrefab1, enemyPrefab2, enemyPrefab3; // enemyPrefab1 will have 1 heart, enemyPrefab2 will have 2 hearts...
     [SerializeField] private List<GameObject> spawnPoints = new List<GameObject>();
     [SerializeField] private GameObject gates;
 
-    [SerializeField] private List<GameObject> tāwhirimātea_NPCs;
+    [SerializeField] private GameObject tāwhirimātea_NPC_1; // this npc says "you are not a wero"
+    [SerializeField] private GameObject tāwhirimātea_NPC_2; // this npc says the death speach
+    [SerializeField] private GameObject narrator_NPC; // this npc says the death speach
 
     [SerializeField] private List<GameObject> enemys = new List<GameObject>();
     private bool _isFighting;
@@ -65,8 +67,10 @@ public class FinalBoss : MonoBehaviour
                 }
                 else if (!wave3)
                 {
-                    yield return new WaitForSeconds(0.1f);
-                    yield return new WaitUntil(DoneTalking);
+                    tāwhirimātea_NPC_1.SetActive(true);
+                    tāwhirimātea_NPC_1.GetComponent<NPC>().finalBossNpc();
+                    yield return new WaitForSeconds(0.2f);
+                    yield return new WaitUntil(DoneTalkingToNPC1);
                     SpawnEnemy(enemyPrefab2, 2);
                     wave3 = true;
                     //print("Wave3");
@@ -88,9 +92,15 @@ public class FinalBoss : MonoBehaviour
                 }
                 else
                 {
-                    _isFighting = false;
-                    print("All waves completed!");
+                    _isFighting = false; // stops the loop
+                    tāwhirimātea_NPC_2.SetActive(true);
+                    tāwhirimātea_NPC_2.GetComponent<NPC>().finalBossNpc(); // starts the talking with the NPC
+                    yield return new WaitUntil(DoneTalkingToNPC2);
+                    narrator_NPC.SetActive(true);
+                    narrator_NPC.GetComponent<NPC>().finalBossNpc(); // starts the narractor talk
+                    yield return new WaitUntil(DoneTalkingToNPC3);
                     gates.SetActive(false); // Open gates when done
+                    Application.Quit();
                 }
             }
 
@@ -98,11 +108,31 @@ public class FinalBoss : MonoBehaviour
         }
     }
 
-    private bool DoneTalking()
+    // I cant put all of the wait talking voids into one void because it doesnt work the same.
+    private bool DoneTalkingToNPC1() //sees when the talking has stoped
     {
-        for (int i = 0; tāwhirimātea_NPCs.Count < 5; i++)
+        if(tāwhirimātea_NPC_1.activeSelf)
         {
+            if(!tāwhirimātea_NPC_1.GetComponent<NPC>().Talking) { return true; }
+        }
 
+        return false;
+    }
+    private bool DoneTalkingToNPC2() //sees when the talking has stoped
+    {
+        if (tāwhirimātea_NPC_1.activeSelf)
+        {
+            if (!tāwhirimātea_NPC_2.GetComponent<NPC>().Talking) { return true; }
+        }
+
+        return false;
+    }
+    
+    private bool DoneTalkingToNPC3() // sees when the talking has stoped (this is the Narrator)
+    {
+        if (narrator_NPC.activeSelf)
+        {
+            if (!narrator_NPC.GetComponent<NPC>().Talking) { return true; }
         }
 
         return false;
@@ -115,12 +145,12 @@ public class FinalBoss : MonoBehaviour
             int i = UnityEngine.Random.Range(0, spawnPoints.Count);
             if (spawnPoints[i].GetComponent<FinalBossFightSpawnCheck>().CanSpawn)
             {
-                _amountOfEnemys -= 1;
+                _amountOfEnemys -= 1; // limits the number of enemys to the desired amount
                 GameObject enemy = default;
-                enemy = Instantiate(_enemy, spawnPoints[i].transform.position - transform.position, Quaternion.identity);
-                enemys.Add(enemy);
+                enemy = Instantiate(_enemy, spawnPoints[i].transform.position - transform.position, Quaternion.identity); // spawns the enemy
+                enemys.Add(enemy); // adds the enemy to a LIST
                 enemy.SetActive(true);
-                spawnPoints[i].GetComponent<FinalBossFightSpawnCheck>().CanSpawn = false;
+                spawnPoints[i].GetComponent<FinalBossFightSpawnCheck>().CanSpawn = false; // doesnt let this code use the spawner again for a litte bit
             }
         }
     }
