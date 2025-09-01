@@ -14,13 +14,13 @@ public class FinalBoss : MonoBehaviour
     [SerializeField] private GameObject narrator_NPC; // this npc says the death speach
 
     [SerializeField] private List<GameObject> enemys = new List<GameObject>();
-    private bool _isFighting;
+    public bool IsFighting;
 
     private void OnTriggerEnter2D(Collider2D collision) // activated when player enters fighting zone
     {
-        if (_isFighting) { return; }
+        if (IsFighting) { return; }
         gates.SetActive(true);
-        _isFighting = true;
+        IsFighting = true;
         StartCoroutine(Fight());
     }
 
@@ -32,8 +32,17 @@ public class FinalBoss : MonoBehaviour
         bool wave3 = false;
         bool wave4 = false;
         bool wave5 = false;
-        while (_isFighting)
+        while (IsFighting)
         {
+            if (Input.GetKeyDown(KeyCode.P))
+            {
+                wave1 = true;
+                wave2 = true;
+                wave3 = true;
+                wave4 = true;
+                wave5 = true;
+            }
+
             for (int i = 0; i < enemys.Count; i++)
             {
                 if (enemys[i] == null) // if an enemy is dead, the enemy will be removed from the list
@@ -46,24 +55,24 @@ public class FinalBoss : MonoBehaviour
             {
                 //print("Player die :(");
                 StartCoroutine(Death());
-                _isFighting = false;
+                FindAnyObjectByType<Quests>().Trigger("death");
+                IsFighting = false;
                 yield break;
             }
             if (enemys.Count == 0)
             {
                 if (!wave1)
                 {
+                    FindAnyObjectByType<Quests>().Trigger("BossFightStart");
                     SpawnEnemy(enemyPrefab1, 2);
                     wave1 = true;
-                    //print("Wave1");
-                    yield return new WaitForSeconds(1f); // Brief delay
+                    yield return new WaitForSeconds(1);
                 }
                 else if (!wave2)
                 {
                     SpawnEnemy(enemyPrefab1, 4);
                     wave2 = true;
-                    //print("Wave2");
-                    yield return new WaitForSeconds(1f);
+                    yield return new WaitForSeconds(1);
                 }
                 else if (!wave3)
                 {
@@ -73,32 +82,31 @@ public class FinalBoss : MonoBehaviour
                     yield return new WaitUntil(DoneTalkingToNPC1);
                     SpawnEnemy(enemyPrefab2, 2);
                     wave3 = true;
-                    //print("Wave3");
-                    yield return new WaitForSeconds(1f);
+                    yield return new WaitForSeconds(1);
                 }
                 else if (!wave4)
                 {
                     SpawnEnemy(enemyPrefab2, 3);
                     wave4 = true;
-                    //print("Wave4");
-                    yield return new WaitForSeconds(1f);
+                    yield return new WaitForSeconds(1);
                 }
                 else if (!wave5)
                 {
                     SpawnEnemy(enemyPrefab3, 3);
                     wave5 = true;
-                    //print("Wave5");
-                    yield return new WaitForSeconds(1f);
                 }
                 else
                 {
-                    _isFighting = false; // stops the loop
+                    IsFighting = false; // stops the loop
                     tāwhirimātea_NPC_2.SetActive(true);
                     tāwhirimātea_NPC_2.GetComponent<NPC>().finalBossNpc(); // starts the talking with the NPC
                     yield return new WaitUntil(DoneTalkingToNPC2);
+
+                    yield return new WaitForSeconds(2.5f);
                     narrator_NPC.SetActive(true);
                     narrator_NPC.GetComponent<NPC>().finalBossNpc(); // starts the narractor talk
                     yield return new WaitUntil(DoneTalkingToNPC3);
+
                     gates.SetActive(false); // Open gates when done
                     Application.Quit();
                 }
@@ -120,7 +128,7 @@ public class FinalBoss : MonoBehaviour
     }
     private bool DoneTalkingToNPC2() //sees when the talking has stoped
     {
-        if (tāwhirimātea_NPC_1.activeSelf)
+        if (tāwhirimātea_NPC_2.activeSelf)
         {
             if (!tāwhirimātea_NPC_2.GetComponent<NPC>().Talking) { return true; }
         }

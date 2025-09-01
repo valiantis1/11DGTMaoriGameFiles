@@ -3,6 +3,7 @@ using System.Collections;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Audio;
 
 public class Enemy : MonoBehaviour
 {
@@ -30,6 +31,7 @@ public class Enemy : MonoBehaviour
     private Vector3 _startPos;
     [SerializeField] private float randomWalkRange;
 
+    [SerializeField] private AudioSource audioSource;
     void Awake()
     {
         //records the players start Position
@@ -236,6 +238,17 @@ public class Enemy : MonoBehaviour
         _attacking = false;
         //sets the movement back to the blend tree. So back to the normal moving (idling and running)
         _anim.Play("Movement_Blend_Tree");
+    }
+
+    public void PlaySwingSound() //plays from the animator
+    {
+        if (!audioSource.isPlaying)
+        {
+            // this makes the sound sound less repetitive by changing how it sounds
+            audioSource.pitch = 0.8f + UnityEngine.Random.Range(0, 0.2f);
+            audioSource.volume = 0.6f + UnityEngine.Random.Range(0, 0.2f);
+            audioSource.Play(); // plays the attack sound
+        }
     }
 
     private void OnDrawGizmos()

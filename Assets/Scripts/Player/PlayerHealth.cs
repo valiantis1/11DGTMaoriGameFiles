@@ -24,6 +24,11 @@ public class PlayerHealth : MonoBehaviour
     [NonSerialized] public bool CanRespawn;
 
     private UIManager uiManager;
+
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip healingSound;
+    [SerializeField] private AudioClip playerDeathSound;
+    [SerializeField] private AudioClip damageSound;
     void Awake()
     {
         uiManager = FindAnyObjectByType<UIManager>();
@@ -74,6 +79,8 @@ public class PlayerHealth : MonoBehaviour
             Death();
             yield break;
         }
+        audioSource.clip = damageSound;
+        audioSource.Play(); //plays hit sound
 
         //This makes the player flash red when taken damage.
         for (int i = 0; i < waitLoops; i++)
@@ -92,6 +99,9 @@ public class PlayerHealth : MonoBehaviour
         //gives the player health and sets a heart back to normal
         hearts[_currentHealth].GetComponent<Image>().color = Color.white;
         _currentHealth++;
+
+        audioSource.clip = healingSound;
+        audioSource.Play();
     }
 
     public void Death()
@@ -104,13 +114,14 @@ public class PlayerHealth : MonoBehaviour
         {
             capsuleCollider2D[i].enabled = false;
         }
-        GetComponent<SpriteRenderer>().sortingOrder = 8;
+        GetComponent<SpriteRenderer>().sortingOrder = 8; //this makes it so that the player isnt on everying (defult is 10)
         anim.Play("Death");
         //Makes the Death animation in the right spot
 
+        audioSource.clip = playerDeathSound;
+        audioSource.Play();
 
-
-        transform.position = new Vector3(transform.position.x, transform.position.y - 0.6f, transform.position.z);
+        transform.position = new Vector3(transform.position.x, transform.position.y - 0.6f, transform.position.z); // makes the death head in the right spot
     }
 
     public IEnumerator Delete()

@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -17,20 +18,20 @@ public class EnemySpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(_enemy == null && !_respawning)
+        if (_enemy == null && !_respawning)
         {
             StartCoroutine(RespawnEnemy());
             _respawning = true;
         }
     }
 
-    private IEnumerator RespawnEnemy()
+    private IEnumerator RespawnEnemy() //waits until the player is far from the enemy spawner then spawns an enemy
     {
         yield return new WaitUntil(CanSpawn);
         SpawnEnemy();
     }
 
-    private bool CanSpawn()
+    private bool CanSpawn() //checks if the enemy can respawn
     {
         if(!_isPlayerClose)
         {
@@ -54,6 +55,8 @@ public class EnemySpawner : MonoBehaviour
         _enemy = Instantiate(enemyPrefab);
         _enemy.transform.SetParent(gameObject.transform);
 
+        //there was a problem with moving the enemy without turning the enemy off
+        //so i did it this way.
         _enemy.SetActive(false);
         _enemy.transform.position = transform.position;
         _enemy.SetActive(true);

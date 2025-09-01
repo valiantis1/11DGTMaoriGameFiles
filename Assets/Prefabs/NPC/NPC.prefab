@@ -208,8 +208,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.047, y: 2.25}
-  m_SizeDelta: {x: 20, y: 5}
+  m_AnchoredPosition: {x: 1.0189, y: 2.2366}
+  m_SizeDelta: {x: 19.1647, y: 4.666}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &5489655412512584981
 MeshRenderer:
@@ -276,7 +276,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Press E
+  m_text: Press "E" to interact
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -303,10 +303,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
+  m_fontSize: 21.5
   m_fontSizeBase: 36
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
@@ -774,7 +774,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   imageAndText: 1
+  invisTalking: 0
+  godTalking: 0
   text: {fileID: 0}
+  nameText: {fileID: 0}
   textBox: {fileID: 0}
   imageBox: {fileID: 0}
   imageBoxBackground: {fileID: 0}
@@ -782,17 +785,14 @@ MonoBehaviour:
   exclamationMark: {fileID: 7976225985725884262}
   Talking: 0
   waitTime: 0.02
+  nameOfNpc: Rawiri
   talkingLines:
-  - 'Haere mai, warrior. You are at the takutai (beach). Listen. '
-  - 'Long ago the atua disagreed about how to use the new world. Their mana got stuck
-    on a moutere (island) and could not leave. '
-  - "The island held three atua (gods.) R\u0101kau (land), moana (sea), and hau (wind).
-    Because of this the balance was broken. "
-  - "The Gods names are: T\u0101ne (r\u0101kau/forest), Tangaroa (moana/sea), T\u0101whiri
-    (hau/storm). "
-  - "T\u0101ne, Tangaroa, T\u0101whiri \u2014 they stayed on this moutere (island).
-    They do not leave. Their mana is stuck."
-  - You will help whakaora (restore) the whenua (land).
+  - Haere mai, warrior. You are at the takutai (beach). Listen.
+  - 'After the separation of Rangi and Papa, three atua became trapped here:'
+  - "T\u0101ne of the r\u0101kau (forest), Tangaroa of the moana (sea), and T\u0101whiri
+    of the hau (storm)."
+  - Because they stayed, their mana grew heavy, and the whenua (land) suffers.
+  - You must help whakaora (restore) the whenua.
   changeImage:
   - {fileID: 0}
   - {fileID: -855298285791758126, guid: 83ac78f1669b532499216b717317f873, type: 3}

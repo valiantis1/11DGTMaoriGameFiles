@@ -2,6 +2,7 @@ using System.Collections;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Audio;
 
 public class EnemyHealth : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class EnemyHealth : MonoBehaviour
 
     private bool _canBeAttacked = true;
     private float _waitingTime = 0.5f;
+
+    [SerializeField] private AudioSource audioSource; // for the fire effects
 
     private void Start()
     {
@@ -32,6 +35,7 @@ public class EnemyHealth : MonoBehaviour
         _currentHealth--;
         if(Dead())
         {
+            audioSource.Stop();
             //sets colour back to normal, plays animation and tells the Enemy script to stop everything
             _sprite.color = Color.white;
             GetComponent<Enemy>().IsDead = true;

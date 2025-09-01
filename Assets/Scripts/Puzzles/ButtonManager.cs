@@ -6,8 +6,11 @@ public class ButtonManager : MonoBehaviour
     [SerializeField] private List<GameObject> buttons = new List<GameObject>();
     [SerializeField] private List<GameObject> gates = new List<GameObject>();
     private bool _isAButtonPressed;
+
+    [SerializeField] private AudioSource audioSource;
     public void Pressed(GameObject ButtonPressed)
     {
+        audioSource.Play();
         _isAButtonPressed = false;
         for (int i = 0; i < buttons.Count; i++)
         {

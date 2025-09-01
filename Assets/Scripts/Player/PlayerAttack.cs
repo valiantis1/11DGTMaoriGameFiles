@@ -17,6 +17,8 @@ public class PlayerAttack : MonoBehaviour
 
     private bool _attackUpOrDown;
 
+    [SerializeField] private AudioClip swordSwooshSound1, swordSwooshSound2, swordSwooshSound3;
+    [SerializeField] private AudioSource audioSource;
     void Awake()
     {
         //finds it in the scene
@@ -63,6 +65,27 @@ public class PlayerAttack : MonoBehaviour
             else
                 _anim.Play("Warrior_Attack2_Left_0");
         }
+
+        // plays a swoosh sound
+        int oneToThree = 0;
+        oneToThree = UnityEngine.Random.Range(1, 4);
+        if(oneToThree == 1)
+        {
+            audioSource.clip = swordSwooshSound1;
+        }
+        if(oneToThree == 2)
+        {
+            audioSource.clip = swordSwooshSound2;
+        }
+        if (oneToThree == 3)
+        {
+            audioSource.clip = swordSwooshSound3;
+        }
+
+        // this makes the sound sound less repetitive by changing how it sounds
+        audioSource.pitch = 0.8f + UnityEngine.Random.Range(0, 0.2f);
+        audioSource.volume = 0.6f + UnityEngine.Random.Range(0,0.2f);
+        audioSource.Play();
     }
 
     public void Attack()
